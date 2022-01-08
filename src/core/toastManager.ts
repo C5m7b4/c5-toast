@@ -20,17 +20,28 @@ export const ToastManager = {
   toastContainerId: '',
 
   publish(event: Event, data: any) {
-    console.log(`publishing event: ${event} with data: ${data}`);
-
-    if (event == Event.Show) {
-      toastList.push(data);
-    }
-
+    console.log(
+      `publishing event: ${event} with data: ${JSON.stringify(data)}`
+    );
     if (!subscribers[event]) return;
 
-    subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
-      subscriberCallback(data);
-    });
+    if (event == Event.Show) {
+      const newToastId = generateToastId();
+      const newToast = { ...data, id: newToastId };
+
+      toastList.push(newToast);
+
+      subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
+        subscriberCallback(newToast);
+      });
+    } else {
+      // we need to remove this toast from the list
+      const newToastList = toastList.filter((t) => t.id !== data.id);
+      toastList = newToastList;
+      subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
+        subscriberCallback(data);
+      });
+    }
   },
 
   subscribe(event: Event, callback: any) {

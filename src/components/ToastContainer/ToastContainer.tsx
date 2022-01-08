@@ -35,7 +35,10 @@ export const ToastContainer = ({ position }: ToastContainerProps) => {
     setToasts(toastManager.getToastList());
   });
 
-  toastManager.subscribe(Event.Clear, () => {});
+  toastManager.subscribe(Event.Clear, (toast: OnShowCallback) => {
+    console.log(`removing toast: ${toast}`);
+    setToasts(toastManager.getToastList());
+  });
 
   if (domElement && loaded) {
     return ReactDOM.createPortal(
