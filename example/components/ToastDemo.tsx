@@ -5,8 +5,8 @@ const types = ['info', 'warning', 'error', 'default', 'dark', 'success'];
 
 import {
   ToastManager as toastManager,
-  events,
   ToastContainer,
+  toast,
 } from '../../src/index';
 
 export const ToastDemo = () => {
@@ -14,31 +14,42 @@ export const ToastDemo = () => {
   const [id, setId] = useState('');
   const [type, setType] = useState('info');
 
-  useEffect(() => {}, [events, type]);
+  useEffect(() => {
+    console.log('running useEffect in demo');
+  }, [type]);
 
   const logCallback = () => {
     console.log('Im saying hello');
   };
 
   const handleRegister = () => {
-    const newId = toastManager.add(text, type as TypeOptions, logCallback);
-    setId(newId);
+    switch (type) {
+      case 'success':
+        toast.success(text);
+        break;
+      case 'warning':
+        toast.warning(text);
+        break;
+      case 'info':
+        toast.info(text);
+        break;
+      case 'error':
+        toast.error(text);
+        break;
+      case 'dark':
+        toast.dark(text);
+        break;
+      default:
+        toast.error(text);
+    }
+
     setText('');
-  };
-
-  const handleRemove = (id: string) => {
-    toastManager.remove(id);
-  };
-
-  const handleEmit = () => {
-    toastManager.emit('sayHello');
   };
 
   return (
     <div>
       <div>
         <button onClick={handleRegister}>Register</button>
-        <button onClick={handleEmit}>Emit</button>
       </div>
       <div>
         {types.map((option: string, i: number) => {
@@ -66,19 +77,6 @@ export const ToastDemo = () => {
         />
       </div>
 
-      <div>
-        {events.map((e, i) => (
-          <div style={{ marginTop: '10px' }} key={i}>
-            {e.id} {e.content}
-            <span
-              style={{ marginLeft: '10px', cursor: 'pointer' }}
-              onClick={() => handleRemove(e.id)}
-            >
-              X
-            </span>
-          </div>
-        ))}
-      </div>
       <ToastContainer />
     </div>
   );

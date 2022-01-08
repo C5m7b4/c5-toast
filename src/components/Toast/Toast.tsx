@@ -1,9 +1,10 @@
 import React from 'react';
 import { TypeOptions } from '../../types';
 import { Default } from '../../utils';
+import { ToastContent } from '../../types';
 
 export type ToastProps = {
-  content: string;
+  content: ToastContent;
   id: string;
   type: TypeOptions;
 };

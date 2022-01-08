@@ -1,52 +1,60 @@
 import { generateToastId } from '../utils';
-import { TypeOptions } from '../types';
+import { TypeOptions, ToastContent } from '../types';
 
-export let events: ToastManagerEvent[] = [];
-
-export type ToastManagerEvent = {
+export interface ToastProps {
+  content: ToastContent;
   id: string;
-  content: string;
-  fn: () => void;
   type: TypeOptions;
-};
+}
 
-type AddProps = {
-  content: string;
-  fn: () => void;
-};
+let subscribers: any[] = [];
+
+export const enum Event {
+  Show,
+  Clear,
+}
+
+export let toastList: ToastProps[] = [];
 
 export const ToastManager = {
   toastContainerId: '',
 
-  add(content: string, type: TypeOptions, fn: () => void): string {
-    const id = generateToastId();
-    events.push({ id, content, fn, type });
-    console.log('events', events);
-    return id;
-  },
+  publish(event: Event, data: any) {
+    console.log(`publishing event: ${event} with data: ${data}`);
 
-  remove(id: string) {
-    const position = this.getEventPosition(id);
-    events = events.filter((e) => e.id !== id);
-    console.log(events);
-  },
-
-  emit(id: string) {
-    const event: ToastManagerEvent | null = this.getEvent(id);
-    if (event) {
-      event.fn();
+    if (event == Event.Show) {
+      toastList.push(data);
     }
+
+    if (!subscribers[event]) return;
+
+    subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
+      subscriberCallback(data);
+    });
   },
 
-  getEvent(id: string) {
-    const event = events.filter((e) => e.id === id)[0];
-    if (!event) return null;
-    return event;
-  },
+  subscribe(event: Event, callback: any) {
+    console.log(`event:${event} is subscribing`);
+    if (!subscribers[event]) {
+      subscribers[event] = [];
+    }
 
-  getEventPosition(id: string): number {
-    const position = events.findIndex((e) => e.id === id);
-    return position;
+    let eventAlreadyExists = false;
+
+    subscribers[event].forEach((event: any) => {
+      if (event.toString() == callback.toString()) {
+        eventAlreadyExists = true;
+      }
+    });
+
+    if (!eventAlreadyExists) {
+      subscribers[event].push(callback);
+    }
+
+    console.log('subscribers', subscribers);
+  },
+  getToastList() {
+    return toastList;
   },
 
   setContainerId(id: string) {
