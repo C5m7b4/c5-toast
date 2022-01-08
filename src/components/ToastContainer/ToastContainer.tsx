@@ -1,23 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Toast } from '../Toast';
 import { useToastContainer } from '../../hooks';
-import { events, PubSubEvent } from '../../core';
+import { events, ToastManagerEvent } from '../../core';
+import { ToastPosition } from '../../types';
+import { Default } from '../../utils';
 
-const toastContainerStyles = {
-  gap: '10px',
-  display: 'flex',
-  flexDirection: 'column',
-};
+export interface ToastContainerProps {
+  position: ToastPosition;
+}
 
-export const ToastContainer = () => {
-  const { loaded, portalId } = useToastContainer();
+export const ToastContainer = ({ position }: ToastContainerProps) => {
+  const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
 
   if (domElement && loaded) {
     return ReactDOM.createPortal(
-      <div>
-        {events.map((event: PubSubEvent, i: number) => (
-          <div key={`toast-${i}`}>{event.id}</div>
+      <div className={`${Default.CSS_NAMESPACE}__toast-container`}>
+        {events.map((event: ToastManagerEvent, i: number) => (
+          <Toast
+            key={`toast-${i}`}
+            id={event.id}
+            content={event.content}
+            type={event.type}
+          />
         ))}
       </div>,
       domElement
@@ -25,4 +31,8 @@ export const ToastContainer = () => {
   } else {
     return <React.Fragment></React.Fragment>;
   }
+};
+
+ToastContainer.defaultProps = {
+  position: 'top-right',
 };

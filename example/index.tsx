@@ -1,12 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Toast } from './components';
+import { ToastDemo } from './components';
+
+import '../scss/main.scss';
 
 const App = () => {
   return (
     <div>
       <h2>Toasts</h2>
-      <Toast />
+      <ToastDemo />
     </div>
   );
 };

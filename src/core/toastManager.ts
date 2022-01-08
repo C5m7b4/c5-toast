@@ -1,24 +1,26 @@
 import { generateToastId } from '../utils';
+import { TypeOptions } from '../types';
 
-export let events: PubSubEvent[] = [];
+export let events: ToastManagerEvent[] = [];
 
-export type PubSubEvent = {
+export type ToastManagerEvent = {
   id: string;
-  eventName: string;
+  content: string;
   fn: () => void;
+  type: TypeOptions;
 };
 
 type AddProps = {
-  eventName: string;
+  content: string;
   fn: () => void;
 };
 
-export const PubSub = {
+export const ToastManager = {
   toastContainerId: '',
 
-  add(eventName: string, fn: () => void): string {
+  add(content: string, type: TypeOptions, fn: () => void): string {
     const id = generateToastId();
-    events.push({ id, eventName, fn });
+    events.push({ id, content, fn, type });
     console.log('events', events);
     return id;
   },
@@ -30,7 +32,7 @@ export const PubSub = {
   },
 
   emit(id: string) {
-    const event: PubSubEvent | null = this.getEvent(id);
+    const event: ToastManagerEvent | null = this.getEvent(id);
     if (event) {
       event.fn();
     }

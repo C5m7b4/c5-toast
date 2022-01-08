@@ -1,0 +1,7 @@
+.#{$rt-namespace}__toast-container {
+  z-index: $rt-z-index;
+  -webkit-transform: translate3d(0, 0, #{$rt-z-index}px);
+  padding: 4px;
+  width: $rt-toast-width;
+  box-sizing: border-box;
+}
