@@ -18,7 +18,7 @@ const Svg: React.FC<BuiltInIconProps> = ({ theme, type, ...rest }) => (
     fill={
       theme === 'colored'
         ? 'currentColor'
-        : `var(--toastify-icon-color-${type})`
+        : `var(--toastify__toast-icon-color-${type})`
     }
     {...rest}
   />
