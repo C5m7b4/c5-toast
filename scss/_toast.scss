@@ -50,6 +50,18 @@
       forwards;
     animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out forwards;
   }
+  &__top-left {
+    transform: translateX(-110%);
+    -webkit-transform: translateX(-110%);
+    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+  }
+  &__bottom-left {
+    transform: translateX(-110%);
+    -webkit-transform: translateX(-110%);
+    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+  }
 }
 
 .#{$rt-namespace}__toast-icon {
