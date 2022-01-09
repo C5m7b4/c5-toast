@@ -1,5 +1,5 @@
 import React from 'react';
-import { TypeOptions } from '../../types';
+import { ToastPosition, TypeOptions } from '../../types';
 import { Default } from '../../utils';
 import { ToastContent, Theme } from '../../types';
 import { ToastManager, Event } from '../../core';
@@ -11,10 +11,21 @@ export type ToastProps = {
   type: TypeOptions;
   showIcon: boolean;
   theme: Theme;
+  position: ToastPosition;
 };
 
-export const Toast = ({ content, id, type, showIcon, theme }: ToastProps) => {
-  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${Default.CSS_NAMESPACE}__slide-in`;
+export const Toast = ({
+  content,
+  id,
+  type,
+  showIcon,
+  theme,
+  position,
+}: ToastProps) => {
+  let divAnimationClassName = `${Default.CSS_NAMESPACE}__slide-inFromLeft`;
+  let transformClassName = `${Default.CSS_NAMESPACE}__toast__${position}`;
+
+  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName} ${transformClassName}  }`;
   const maybeIcon = Icons[type as keyof typeof Icons];
   const iconProps = { theme, type };
   let Icon: React.ReactNode = maybeIcon && maybeIcon(iconProps);
@@ -34,6 +45,7 @@ export const Toast = ({ content, id, type, showIcon, theme }: ToastProps) => {
   const handleRemoveToast = () => {
     ToastManager.publish(Event.Clear, { id });
   };
+
   return (
     <div className={classNames} id={id} onClick={handleRemoveToast}>
       {Icon && (
