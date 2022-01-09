@@ -1,27 +1,39 @@
-@keyframes #{$rt-namespace}__slide-inFromLeft {
+@keyframes #{$rt-namespace}__slide-inFromRight {
+  95% {
+    transform: translateX(-20%);
+  }
   100% {
     transform: translateX(0%);
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-inFromLeft {
+@-webkit-keyframes #{$rt-namespace}__slide-inFromRight {
+  95% {
+    transform: translateX(-20%);
+  }
   100% {
     transform: translateX(0%);
   }
 }
 
-@keyframes #{$rt-namespace}__slide-out {
+@keyframes #{$rt-namespace}__slide-outToRight {
   0% {
     transform: translateX(0%);
+  }
+  10% {
+    transform: translateX(-25%);
   }
   100% {
     transform: translateX(1000%);
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-out {
+@-webkit-keyframes #{$rt-namespace}__slide-outToRight {
   0% {
     transform: translateX(0%);
+  }
+  10% {
+    transform: translateX(-25%);
   }
   100% {
     transform: translateX(1000%);
