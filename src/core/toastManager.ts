@@ -1,5 +1,5 @@
 import { generateToastId } from '../utils';
-import { TypeOptions, ToastContent } from '../types';
+import { TypeOptions, ToastContent, ToastPosition } from '../types';
 
 export interface ToastProps {
   content: ToastContent;
@@ -18,6 +18,7 @@ export let toastList: ToastProps[] = [];
 
 export const ToastManager = {
   toastContainerId: '',
+  toastPosition: '',
 
   publish(event: Event, data: any) {
     console.log(
@@ -27,7 +28,11 @@ export const ToastManager = {
 
     if (event == Event.Show) {
       const newToastId = generateToastId();
-      const newToast = { ...data, id: newToastId };
+      const newToast = {
+        ...data,
+        id: newToastId,
+        position: this.toastPosition,
+      };
 
       toastList.push(newToast);
 
@@ -74,5 +79,9 @@ export const ToastManager = {
 
   getContainerId(): string {
     return this.toastContainerId;
+  },
+
+  setToastPosition(position: ToastPosition): void {
+    this.toastPosition = position;
   },
 };
