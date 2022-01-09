@@ -39,14 +39,16 @@
   &__top-right {
     transform: translateX(110%);
     -webkit-transform: translateX(110%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
-    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+    -webkit-animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out
+      forwards;
+    animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out forwards;
   }
   &__bottom-right {
     transform: translateX(110%);
     -webkit-transform: translateX(110%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
-    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+    -webkit-animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out
+      forwards;
+    animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out forwards;
   }
 }
 
