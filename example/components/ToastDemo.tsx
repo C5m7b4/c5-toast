@@ -103,7 +103,7 @@ export const ToastDemo = () => {
       </div>
 
       <ToastContainer
-        autoClose={false}
+        autoClose={autoClose}
         autoCloseDelay={autoCloseDelay}
         showIcons={true}
       />
