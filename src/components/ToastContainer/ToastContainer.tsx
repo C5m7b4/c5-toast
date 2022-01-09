@@ -78,6 +78,7 @@ export const ToastContainer = ({
             type={event.type}
             showIcon={showIcons}
             theme={theme}
+            position={position}
           />
         ))}
       </div>,
