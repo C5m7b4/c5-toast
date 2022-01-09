@@ -2,7 +2,7 @@ import React from 'react';
 import { ToastPosition, TypeOptions } from '../../types';
 import { Default } from '../../utils';
 import { ToastContent, Theme } from '../../types';
-import { ToastManager, Event } from '../../core';
+import { ToastManager as toastManager, Event } from '../../core';
 import { Icons } from '../Icons';
 
 export type ToastProps = {
@@ -43,7 +43,18 @@ export const Toast = ({
   }
 
   const handleRemoveToast = () => {
-    ToastManager.publish(Event.Clear, { id });
+    const toastDiv = document.getElementById(id);
+    if (toastDiv) {
+      toastDiv.classList.remove(`${Default.CSS_NAMESPACE}__slide-inFromRight`);
+      toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToRight`);
+      toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToRight 1s ease forwards`;
+
+      // now we can call another setTimeout used to remove the element entirely
+      setTimeout(() => {
+        console.log(`clearing toast from click with id: ${id}`);
+        toastManager.publish(Event.Clear, { id });
+      }, 550);
+    }
   };
 
   return (
