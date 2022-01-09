@@ -47,13 +47,23 @@ export const ToastContainer = ({
         if (toast) {
           const toastDiv = document.getElementById(toast.id);
           if (toastDiv) {
-            toastDiv.classList.remove(
-              `${Default.CSS_NAMESPACE}__slide-inFromRight`
-            );
-            toastDiv.classList.add(
-              `${Default.CSS_NAMESPACE}__slide-outToRight`
-            );
-            toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToRight 1s ease forwards`;
+            if (position == 'top-right' || position == 'bottom-right') {
+              toastDiv.classList.remove(
+                `${Default.CSS_NAMESPACE}__slide-inFromRight`
+              );
+              toastDiv.classList.add(
+                `${Default.CSS_NAMESPACE}__slide-outToRight`
+              );
+              toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToRight 1s ease forwards`;
+            } else if (position == 'top-left' || position == 'bottom-left') {
+              toastDiv.classList.remove(
+                `${Default.CSS_NAMESPACE}__slide-inFromLeft`
+              );
+              toastDiv.classList.add(
+                `${Default.CSS_NAMESPACE}__slide-outToLeft`
+              );
+              toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToLeft .5s ease forwards`;
+            }
 
             // now we can call another setTimeout used to remove the element entirely
             setTimeout(() => {
