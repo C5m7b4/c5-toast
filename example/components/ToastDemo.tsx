@@ -16,7 +16,7 @@ export const ToastDemo = () => {
   const [id, setId] = useState('');
   const [type, setType] = useState('info');
   const [autoClose, setAutoClose] = useState(true);
-  const [autoCloseDelay, setAutoCloseDelay] = useState(10000);
+  const [autoCloseDelay, setAutoCloseDelay] = useState(5000);
 
   useEffect(() => {
     console.log('running useEffect in demo');
@@ -106,6 +106,7 @@ export const ToastDemo = () => {
         autoClose={autoClose}
         autoCloseDelay={autoCloseDelay}
         showIcons={true}
+        position="top-right"
       />
     </div>
   );
