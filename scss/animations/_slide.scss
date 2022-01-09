@@ -1,10 +1,10 @@
-@keyframes #{$rt-namespace}__slide-in {
+@keyframes #{$rt-namespace}__slide-inFromLeft {
   100% {
     transform: translateX(0%);
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-in {
+@-webkit-keyframes #{$rt-namespace}__slide-inFromLeft {
   100% {
     transform: translateX(0%);
   }
