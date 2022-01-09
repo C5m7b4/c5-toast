@@ -16,6 +16,8 @@ export type ToastPosition =
   | 'bottom-center'
   | 'bottom-left';
 
+export type Theme = 'light' | 'dark' | 'colored';
+
 export type ToastClassName =
   | {
       type?: TypeOptions;

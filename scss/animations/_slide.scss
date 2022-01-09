@@ -1,0 +1,29 @@
+@keyframes #{$rt-namespace}__slide-in {
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes #{$rt-namespace}__slide-in {
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes #{$rt-namespace}__slide-out {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(1000%);
+  }
+}
+
+@-webkit-keyframes #{$rt-namespace}__slide-out {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(1000%);
+  }
+}

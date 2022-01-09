@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TypeOptions } from '../../src/types';
 
+import './ToastDemo.css';
+
 const types = ['info', 'warning', 'error', 'default', 'dark', 'success'];
 
 import {
@@ -13,6 +15,8 @@ export const ToastDemo = () => {
   const [text, setText] = useState('');
   const [id, setId] = useState('');
   const [type, setType] = useState('info');
+  const [autoClose, setAutoClose] = useState(true);
+  const [autoCloseDelay, setAutoCloseDelay] = useState(10000);
 
   useEffect(() => {
     console.log('running useEffect in demo');
@@ -70,14 +74,39 @@ export const ToastDemo = () => {
         })}
       </div>
       <div>
+        <label>Message: </label>
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
       </div>
+      <div>
+        <label>Auto Close: </label>
+        <input
+          type="checkbox"
+          checked={autoClose == true}
+          onChange={(e) => setAutoClose(e.target.checked)}
+        />
 
-      <ToastContainer />
+        {autoClose && (
+          <React.Fragment>
+            <br />
+            <label>Delay Time: </label>
+            <input
+              type="number"
+              value={autoCloseDelay}
+              onChange={(e) => setAutoCloseDelay(+e.target.value)}
+            />
+          </React.Fragment>
+        )}
+      </div>
+
+      <ToastContainer
+        autoClose={false}
+        autoCloseDelay={autoCloseDelay}
+        showIcons={true}
+      />
     </div>
   );
 };

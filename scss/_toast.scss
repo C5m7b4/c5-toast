@@ -1,15 +1,20 @@
 .#{$rt-namespace}__toast {
   position: relative;
   min-height: $rt-toast-min-height;
+  min-width: $rt-toast-min-width;
   box-sizing: border-box;
   margin-bottom: 1rem;
   padding: 8px;
   border-radius: 4px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 15px rgba(0, 0, 0, 0.05);
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   max-height: $rt-toast-max-height;
   font-family: $rt-font-family;
+  transform: translateX(-200%);
+  -webkit-transform: translateX(110%);
+  -webkit-animation: #{$rt-namespace}__slide-in 0.5s forwards;
+  animation: #{$rt-namespace}__slide-in 0.5s forwards;
   cursor: pointer;
   &--dark {
     background: $rt-color-dark;
@@ -21,11 +26,21 @@
   }
   &--success {
     background: $rt-color-success;
+    color: $rt-text-color-dark;
   }
   &--warning {
     background: $rt-color-warning;
   }
   &--error {
     background: $rt-color-error;
+    color: $rt-text-color-dark;
   }
+  &-message {
+    margin-left: 10px;
+  }
+}
+
+.#{$rt-namespace}__toast-icon {
+  height: 34px;
+  width: 34px;
 }

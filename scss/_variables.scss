@@ -1,7 +1,9 @@
 $rt-namespace: 'Toastify';
+
 $rt-toast-width: 320px !default;
 $rt-toast-background: #fff !default;
 $rt-toast-min-height: 64px !default;
+$rt-toast-min-width: 100px !default;
 $rt-toast-max-height: 800px !default;
 
 $rt-color-default: #fff !default;
@@ -11,8 +13,16 @@ $rt-color-success: #07bc0c !default;
 $rt-color-warning: #f1c40f !default;
 $rt-color-error: #e74c3c !default;
 
+$rt-icon-color-info: var($rt-color-info);
+$rt-icon-color-success: var($rt-color-success);
+$rt-icon-color-warning: var($rt-color-warning);
+$rt-icon-color-error: var($rt-color-error);
+
 $rt-text-color-default: #aaa !default;
 $rt-text-color-dark: #fff !default;
 
 $rt-font-family: sans-serif !default;
 $rt-z-index: 9999 !default;
+
+$rt-spinner-color: #616161;
+$rt-spinner-color-empty-area: #e0e0e0;
