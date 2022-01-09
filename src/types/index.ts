@@ -30,6 +30,7 @@ export interface ToastContentProps {
   closeToast?: () => void;
 }
 
-export type ToastContent =
-  | React.ReactNode
-  | ((props: ToastContentProps) => React.ReactNode);
+// export type ToastContent =
+//   | React.ReactNode
+//   | ((props: ToastContentProps) => React.ReactNode);
+export type ToastContent = React.ReactNode;
