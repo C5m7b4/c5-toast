@@ -22,10 +22,13 @@ export const Toast = ({
   theme,
   position,
 }: ToastProps) => {
-  let divAnimationClassName = `${Default.CSS_NAMESPACE}__slide-inFromLeft`;
+  let divAnimationClassName = `${Default.CSS_NAMESPACE}__slide-inFromRight`;
   let transformClassName = `${Default.CSS_NAMESPACE}__toast__${position}`;
+  if (position == 'top-left' || position == 'bottom-left') {
+    divAnimationClassName = `${Default.CSS_NAMESPACE}__slide-inFromLeft`;
+  }
 
-  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName} ${transformClassName}  }`;
+  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName} ${transformClassName}`;
   const maybeIcon = Icons[type as keyof typeof Icons];
   const iconProps = { theme, type };
   let Icon: React.ReactNode = maybeIcon && maybeIcon(iconProps);
@@ -45,9 +48,17 @@ export const Toast = ({
   const handleRemoveToast = () => {
     const toastDiv = document.getElementById(id);
     if (toastDiv) {
-      toastDiv.classList.remove(`${Default.CSS_NAMESPACE}__slide-inFromRight`);
-      toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToRight`);
-      toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToRight 1s ease forwards`;
+      if (position == 'top-right' || position == 'bottom-right') {
+        toastDiv.classList.remove(
+          `${Default.CSS_NAMESPACE}__slide-inFromRight`
+        );
+        toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToRight`);
+        toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToRight 1s ease forwards`;
+      } else if (position == 'top-left' || position == 'bottom-left') {
+        toastDiv.classList.remove(`${Default.CSS_NAMESPACE}__slide-inFromLeft`);
+        toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToLeft`);
+        toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToLeft .5s ease forwards`;
+      }
 
       // now we can call another setTimeout used to remove the element entirely
       setTimeout(() => {
