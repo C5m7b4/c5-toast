@@ -5,6 +5,7 @@ export interface ToastProps {
   content: ToastContent;
   id: string;
   type: TypeOptions;
+  position: ToastPosition;
 }
 
 let subscribers: any[] = [];
