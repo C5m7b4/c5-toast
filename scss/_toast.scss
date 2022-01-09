@@ -11,10 +11,6 @@
   // justify-content: space-between;
   max-height: $rt-toast-max-height;
   font-family: $rt-font-family;
-  transform: translateX(-200%);
-  -webkit-transform: translateX(110%);
-  -webkit-animation: #{$rt-namespace}__slide-in 0.5s forwards;
-  animation: #{$rt-namespace}__slide-in 0.5s forwards;
   cursor: pointer;
   &--dark {
     background: $rt-color-dark;
@@ -39,6 +35,18 @@
     margin-left: 10px;
     display: flex;
     align-items: center;
+  }
+  &__top-right {
+    transform: translateX(110%);
+    -webkit-transform: translateX(110%);
+    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+  }
+  &__bottom-right {
+    transform: translateX(110%);
+    -webkit-transform: translateX(110%);
+    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
+    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
   }
 }
 
