@@ -62,6 +62,18 @@
     -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
     animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
   }
+  &__top-center {
+    transform: translateY(-110%) translateX(-50%);
+    -webkit-transform: translateY(-110%) translateX(-50%);
+    -webkit-animation: #{$rt-namespace}__slide-inFromTop 0.5s forwards;
+    animation: #{$rt-namespace}__slide-inFromTop 0.5s forwards;
+  }
+  &__bottom-center {
+    transform: translateY(110%) translateX(-50%);
+    -webkit-transform: translateY(110%) translateX(-50%);
+    -webkit-animation: #{$rt-namespace}__slide-inFromBottom 0.5s forwards;
+    animation: #{$rt-namespace}__slide-inFromBottom 0.5s forwards;
+  }
 }
 
 .#{$rt-namespace}__toast-icon {
