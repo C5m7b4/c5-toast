@@ -47,3 +47,9 @@ interface CommonOptions {
 export interface ToastOptions extends CommonOptions {
   animation?: AnimationTypes;
 }
+
+export type OnShowCallback = {
+  content: ToastContent;
+  id: string;
+  type: TypeOptions;
+};
