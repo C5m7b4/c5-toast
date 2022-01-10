@@ -22,9 +22,6 @@ export const ToastManager = {
   toastPosition: '',
 
   publish(event: Event, data: any) {
-    console.log(
-      `publishing event: ${event} with data: ${JSON.stringify(data)}`
-    );
     if (!subscribers[event]) return;
 
     if (event == Event.Show) {
@@ -33,6 +30,7 @@ export const ToastManager = {
         ...data,
         id: newToastId,
         position: this.toastPosition,
+        toastAnimation: data.options?.animation || null,
       };
 
       toastList.push(newToast);
