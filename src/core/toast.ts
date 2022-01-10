@@ -7,7 +7,7 @@ const createToastByType =
   (type: TypeOptions) => (content: ToastContent, options?: ToastOptions) =>
     toast(content, type, options);
 
-export const toast = (
+const toast = (
   content: ToastContent,
   type: TypeOptions,
   options?: ToastOptions
@@ -21,3 +21,5 @@ toast.warning = createToastByType(TYPE.WARNING);
 toast.error = createToastByType(TYPE.ERROR);
 toast.info = createToastByType(TYPE.INFO);
 toast.dark = createToastByType(TYPE.DARK);
+
+export { toast };
