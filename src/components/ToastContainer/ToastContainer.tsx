@@ -28,15 +28,16 @@ export type OnShowCallback = {
   type: TypeOptions;
 };
 
-function ToastContainer({
-  position,
-  autoClose,
-  autoCloseDelay,
-  showIcons,
-  theme,
-  animation,
-  showLastOnTop,
-}: ToastContainerProps) {
+const ToastContainer: React.FC<ToastContainerProps> = (props) => {
+  const {
+    position,
+    autoClose,
+    autoCloseDelay,
+    showIcons,
+    theme,
+    animation,
+    showLastOnTop,
+  } = props;
   const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
   const [toasts, setToasts] = useState<ToastProps[]>([]);
@@ -109,7 +110,7 @@ function ToastContainer({
   } else {
     return <React.Fragment></React.Fragment>;
   }
-}
+};
 
 ToastContainer.defaultProps = {
   position: 'top-right',
@@ -119,3 +120,5 @@ ToastContainer.defaultProps = {
   theme: 'dark',
   showLastOnTop: false,
 };
+
+export default ToastContainer;
