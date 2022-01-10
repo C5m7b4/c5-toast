@@ -6,11 +6,20 @@
   50% {
     opacity: 1;
   }
+  95% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes #{$rt-namespace}__zoom-out {
   from {
     opacity: 1;
+  }
+  10% {
+    transform: scale(1.3);
   }
   50% {
     opacity: 0;
@@ -40,5 +49,6 @@
   &--bottom-center,
   &--top-center {
     animation-name: #{$rt-namespace}__zoom-out;
+    animation-duration: 2s;
   }
 }
