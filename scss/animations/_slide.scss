@@ -1,24 +1,34 @@
-@keyframes #{$rt-namespace}__slide-inFromRight {
-  95% {
-    transform: translateX(-20%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
+@mixin transform {
+  transform: translateX(0%);
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-inFromRight {
-  95% {
-    transform: translateX(-20%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes #{$rt-namespace}__slide-outToRight {
+@keyframes #{$rt-namespace}__inFromRight {
   0% {
-    transform: translateX(0%);
+    transform: translateX(110%);
+  }
+  95% {
+    transform: translateX(-20%);
+  }
+  100% {
+    @include transform;
+  }
+}
+
+@-webkit-keyframes #{$rt-namespace}__inFromRight {
+  0% {
+    transform: translateX(110%);
+  }
+  95% {
+    transform: translateX(-20%);
+  }
+  100% {
+    @include transform;
+  }
+}
+
+@keyframes #{$rt-namespace}__outToRight {
+  0% {
+    @include transform;
   }
   10% {
     transform: translateX(-25%);
@@ -28,9 +38,9 @@
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-outToRight {
+@-webkit-keyframes #{$rt-namespace}__outToRight {
   0% {
-    transform: translateX(0%);
+    @include transform;
   }
   10% {
     transform: translateX(-25%);
@@ -40,27 +50,33 @@
   }
 }
 
-@keyframes #{$rt-namespace}__slide-inFromLeft {
-  95% {
-    transform: translateX(5%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@-webkit-keyframes #{$rt-namespace}__slide-inFromLeft {
-  95% {
-    transform: translateX(5%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes #{$rt-namespace}__slide-outToLeft {
+@keyframes #{$rt-namespace}__inFromLeft {
   0% {
-    transform: translateX(0%);
+    transform: translateX(-110%);
+  }
+  95% {
+    transform: translateX(5%);
+  }
+  100% {
+    @include transform;
+  }
+}
+
+@-webkit-keyframes #{$rt-namespace}__inFromLeft {
+  0% {
+    transform: translateX(-110%);
+  }
+  95% {
+    transform: translateX(5%);
+  }
+  100% {
+    @include transform;
+  }
+}
+
+@keyframes #{$rt-namespace}__outToLeft {
+  0% {
+    @include transform;
   }
   10% {
     transform: translateX(10%);
@@ -70,9 +86,9 @@
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-outToLeft {
+@-webkit-keyframes #{$rt-namespace}__outToLeft {
   0% {
-    transform: translateX(0%);
+    @include transform;
   }
   10% {
     transform: translateX(10%);
@@ -82,19 +98,25 @@
   }
 }
 
-@keyframes #{$rt-namespace}__slide-inFromTop {
+@keyframes #{$rt-namespace}__inFromTop {
+  0% {
+    transform: translateY(-110%) translateX(-50%);
+  }
   100% {
     transform: translateY(0%) translateX(-50%);
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-inFromTop {
+@-webkit-keyframes #{$rt-namespace}__inFromTop {
+  0% {
+    transform: translateY(-110%) translateX(-50%);
+  }
   100% {
     transform: translateY(0%) translateX(-50%);
   }
 }
 
-@keyframes #{$rt-namespace}__slide-outToTop {
+@keyframes #{$rt-namespace}__outToTop {
   0% {
     transform: translateY(0%) translateX(-50%);
   }
@@ -106,7 +128,7 @@
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-outToTop {
+@-webkit-keyframes #{$rt-namespace}__outToTop {
   0% {
     transform: translateY(0%) translateX(-50%);
   }
@@ -118,7 +140,7 @@
   }
 }
 
-@keyframes #{$rt-namespace}__slide-inFromBottom {
+@keyframes #{$rt-namespace}__inFromBottom {
   0% {
     transform: translateY(110%) translateX(-50%);
   }
@@ -130,7 +152,7 @@
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-inFromBottom {
+@-webkit-keyframes #{$rt-namespace}__inFromBottom {
   0% {
     transform: translateY(110%) translateX(-50%);
   }
@@ -142,7 +164,7 @@
   }
 }
 
-@keyframes #{$rt-namespace}__slide-outToBottom {
+@keyframes #{$rt-namespace}__outToBottom {
   0% {
     transform: translateY(0%) translateX(-50%);
   }
@@ -154,7 +176,7 @@
   }
 }
 
-@-webkit-keyframes #{$rt-namespace}__slide-outToBottom {
+@-webkit-keyframes #{$rt-namespace}__outToBottom {
   0% {
     transform: translateY(0%) translateX(-50%);
   }
@@ -163,5 +185,40 @@
   }
   100% {
     transform: translateY(110%) translateX(-50%);
+  }
+}
+
+.#{$rt-namespace}__slide-enter {
+  &--top-right,
+  &--bottom-right {
+    animation-name: #{$rt-namespace}__inFromRight;
+    -webkit-animation-name: #{$rt-namespace}__inFromRight;
+  }
+  &--top-left,
+  &--bottom-left {
+    animation-name: #{$rt-namespace}__inFromLeft;
+  }
+  &--top-center {
+    animation-name: #{$rt-namespace}__inFromTop;
+  }
+  &--bottom-center {
+    animation-name: #{$rt-namespace}__inFromBottom;
+  }
+}
+
+.#{$rt-namespace}__slide-exit {
+  &--top-right,
+  &--bottom-right {
+    animation: #{$rt-namespace}__outToRight;
+  }
+  &--top-left,
+  &--bottom-left {
+    animation: #{$rt-namespace}__outToLeft;
+  }
+  &--top-center {
+    animation: #{$rt-namespace}__outToTop;
+  }
+  &--bottom-center {
+    animation: #{$rt-namespace}__outToBottom;
   }
 }
