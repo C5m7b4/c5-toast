@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToastPosition, TypeOptions } from '../../types';
+import { AnimationTypes, ToastPosition, TypeOptions } from '../../types';
 import { Default } from '../../utils';
 import { ToastContent, Theme } from '../../types';
 import { ToastManager as toastManager, Event } from '../../core';
@@ -12,6 +12,8 @@ export type ToastProps = {
   showIcon: boolean;
   theme: Theme;
   position: ToastPosition;
+  animation: AnimationTypes;
+  toastAnimation?: AnimationTypes;
 };
 
 export const Toast = ({
@@ -21,16 +23,15 @@ export const Toast = ({
   showIcon,
   theme,
   position,
+  animation,
+  toastAnimation,
 }: ToastProps) => {
-  let divAnimationClassName = `${Default.CSS_NAMESPACE}__slide-inFromRight`;
-  let transformClassName = `${Default.CSS_NAMESPACE}__toast__${position}`;
-  if (position == 'top-left' || position == 'bottom-left') {
-    divAnimationClassName = `${Default.CSS_NAMESPACE}__slide-inFromLeft`;
-  } else if (position == 'top-center') {
-    divAnimationClassName = `${Default.CSS_NAMESPACE}__slide-inFromTope`;
+  if (toastAnimation) {
+    animation = toastAnimation;
   }
+  let divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
 
-  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName} ${transformClassName}`;
+  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName}`;
   const maybeIcon = Icons[type as keyof typeof Icons];
   const iconProps = { theme, type };
   let Icon: React.ReactNode = maybeIcon && maybeIcon(iconProps);
@@ -50,33 +51,21 @@ export const Toast = ({
   const handleRemoveToast = () => {
     const toastDiv = document.getElementById(id);
     if (toastDiv) {
-      if (position == 'top-right' || position == 'bottom-right') {
-        toastDiv.classList.remove(
-          `${Default.CSS_NAMESPACE}__slide-inFromRight`
-        );
-        toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToRight`);
-        toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToRight 1s ease forwards`;
-      } else if (position == 'top-left' || position == 'bottom-left') {
-        toastDiv.classList.remove(`${Default.CSS_NAMESPACE}__slide-inFromLeft`);
-        toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToLeft`);
-        toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToLeft .5s ease forwards`;
-      } else if (position == 'top-center') {
-        toastDiv.classList.remove(`${Default.CSS_NAMESPACE}__slide-inFromTop`);
-        toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToTop`);
-        toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToTop .5s ease forwards`;
-      } else if (position == 'bottom-center') {
-        toastDiv.classList.remove(
-          `${Default.CSS_NAMESPACE}__slide-inFrombottom`
-        );
-        toastDiv.classList.add(`${Default.CSS_NAMESPACE}__slide-outToBottom`);
-        toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToBottom .5s ease forwards`;
-      }
+      toastDiv.classList.remove(
+        `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`
+      );
+      toastDiv.classList.add(
+        `${Default.CSS_NAMESPACE}__${animation}-exit--${position}`
+      );
+
+      toastDiv.style.animationDuration = '1s';
+      toastDiv.style.animationFillMode = 'forwards';
 
       // now we can call another setTimeout used to remove the element entirely
       setTimeout(() => {
         console.log(`clearing toast from click with id: ${id}`);
         toastManager.publish(Event.Clear, { id });
-      }, 550);
+      }, 1000);
     }
   };
 
