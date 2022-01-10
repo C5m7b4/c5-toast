@@ -37,7 +37,9 @@ export const ToastDemo = () => {
   const handleRegister = () => {
     switch (type) {
       case 'success':
-        toast.success(text);
+        toast.success(text, {
+          animation: 'zoom',
+        });
         break;
       case 'warning':
         toast.warning(text);
