@@ -107,7 +107,7 @@ export const ToastDemo = () => {
         autoCloseDelay={autoCloseDelay}
         showIcons={true}
         position="top-right"
-        animation="spin"
+        animation="zoom"
       />
     </div>
   );
