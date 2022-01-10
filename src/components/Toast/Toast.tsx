@@ -4,28 +4,20 @@ import { Default } from '../../utils';
 import { ToastContent, Theme } from '../../types';
 import { ToastManager as toastManager, Event } from '../../core';
 import { Icons } from '../Icons';
+import { ToastProps } from '../../interfaces';
 
-export type ToastProps = {
-  content: ToastContent;
-  id: string;
-  type: TypeOptions;
-  showIcon: boolean;
-  theme: Theme;
-  position: ToastPosition;
-  animation: AnimationTypes;
-  toastAnimation?: AnimationTypes;
-};
+const Toast: React.FC<ToastProps> = (props) => {
+  let {
+    content,
+    id,
+    type,
+    showIcon,
+    theme = 'light',
+    position = 'top-right',
+    animation = 'slide',
+    toastAnimation,
+  } = props;
 
-export const Toast = ({
-  content,
-  id,
-  type,
-  showIcon,
-  theme,
-  position,
-  animation,
-  toastAnimation,
-}: ToastProps) => {
   if (toastAnimation) {
     animation = toastAnimation;
   }
@@ -78,3 +70,5 @@ export const Toast = ({
     </div>
   );
 };
+
+export default Toast;
