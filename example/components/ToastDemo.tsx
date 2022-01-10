@@ -25,7 +25,7 @@ export const ToastDemo = () => {
   const [autoClose, setAutoClose] = useState(false);
   const [autoCloseDelay, setAutoCloseDelay] = useState(10000);
   const [animation, setAnimation] = useState('slide');
-  const [showLastOnTop, setShowLastOnTop] = useState(false);
+  const [showLastOnTop, setShowLastOnTop] = useState(true);
 
   useEffect(() => {
     console.log('running useEffect in demo');
