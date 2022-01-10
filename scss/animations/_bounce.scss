@@ -1,30 +1,63 @@
 @mixin timing-function {
   animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
 
-  @keyframes #{$rt-namespace}__bounce-inFromRight {
-    from,
-    60%,
-    75%,
-    90%,
-    to {
-      @include timing-function;
-    }
-    from {
-      opacity: 0;
-      transform: translate3d(3000px, 0, 0);
-    }
-    60% {
-      opacity: 1;
-      transform: translate3d(-25px, 0, 0);
-    }
-    75% {
-      transform: translate3d(10px, 0, 0);
-    }
-    90% {
-      transform: translate3d(-5px, 0, 0);
-    }
-    to {
-      transform: none;
-    }
+@keyframes #{$rt-namespace}__bounce-inFromRight {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    @include timing-function;
+  }
+  from {
+    opacity: 0;
+    transform: translate3d(3000px, 0, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(-25px, 0, 0);
+  }
+  75% {
+    transform: translate3d(10px, 0, 0);
+  }
+  90% {
+    transform: translate3d(-5px, 0, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes #{$rt-namespace}__bounce-outFromRight {
+  20% {
+    opacity: 1;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(2000px);
+  }
+}
+
+.#{$rt-namespace}__bounce-enter {
+  &--top-left,
+  &--bottom-left {
+    animation-name: #{rt-namespace}__bounce-inFromLeft;
+  }
+  &--top-right,
+  &--bottom-right {
+    animation-name: #{$rt-namespace}__bounce-inFromRight;
+  }
+}
+
+.#{$rt-namespace}__bounce-exit {
+  &--top-left,
+  &--bottom-left {
+    animation-name: #{rt-namespace}__bounce-outFromLeft;
+  }
+  &--top-right,
+  &--bottom-right {
+    animation-name: #{$rt-namespace}__bounce-outFromRight;
   }
 }
