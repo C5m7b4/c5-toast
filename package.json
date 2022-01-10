@@ -1,6 +1,6 @@
 {
   "name": "c5-toasts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -19,8 +19,8 @@
   "author": "C5m7b4",
   "license": "MIT",
   "repository": {
-    "type":"git",
-    "url":"https://github.com/C5m7b4/c5-toast.git"
+    "type": "git",
+    "url": "https://github.com/C5m7b4/c5-toast.git"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
