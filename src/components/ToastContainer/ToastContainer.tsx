@@ -19,6 +19,7 @@ export interface ToastContainerProps {
   showIcons: boolean;
   theme: Theme;
   animation: AnimationTypes;
+  showLastOnTop: boolean;
 }
 
 export type OnShowCallback = {
@@ -34,6 +35,7 @@ export const ToastContainer = ({
   showIcons,
   theme,
   animation,
+  showLastOnTop,
 }: ToastContainerProps) => {
   const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
@@ -45,7 +47,11 @@ export const ToastContainer = ({
 
   toastManager.subscribe(Event.Show, (toast: OnShowCallback) => {
     console.log(`adding toast from subscripiton: ${toast}`);
-    setToasts(toastManager.getToastList());
+    let toastList = [...toastManager.getToastList()];
+    if (showLastOnTop) {
+      toastList = toastList.reverse();
+    }
+    setToasts(toastList);
 
     if (autoClose) {
       setTimeout(() => {
@@ -111,4 +117,5 @@ ToastContainer.defaultProps = {
   autoCloseDelay: 10000,
   showIcons: false,
   theme: 'dark',
+  showLastOnTop: false,
 };
