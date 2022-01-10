@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom';
 import { Toast } from '../Toast';
 import { useToastContainer } from '../../hooks';
 import { ToastManager as toastManager, Event, ToastProps } from '../../core';
-import { ToastContent, ToastPosition, TypeOptions, Theme } from '../../types';
+import {
+  ToastContent,
+  ToastPosition,
+  TypeOptions,
+  Theme,
+  AnimationTypes,
+} from '../../types';
 import { Default } from '../../utils';
 
 export interface ToastContainerProps {
@@ -12,6 +18,7 @@ export interface ToastContainerProps {
   autoCloseDelay: number;
   showIcons: boolean;
   theme: Theme;
+  animation: AnimationTypes;
 }
 
 export type OnShowCallback = {
@@ -26,6 +33,7 @@ export const ToastContainer = ({
   autoCloseDelay,
   showIcons,
   theme,
+  animation,
 }: ToastContainerProps) => {
   const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
@@ -109,6 +117,8 @@ export const ToastContainer = ({
             showIcon={showIcons}
             theme={theme}
             position={position}
+            animation={animation}
+            toastAnimation={event.toastAnimation}
           />
         ))}
       </div>,
