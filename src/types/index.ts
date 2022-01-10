@@ -18,6 +18,8 @@ export type ToastPosition =
 
 export type Theme = 'light' | 'dark' | 'colored';
 
+export type AnimationTypes = 'slide' | 'bounce' | 'spin' | 'zoom';
+
 export type ToastClassName =
   | {
       type?: TypeOptions;
