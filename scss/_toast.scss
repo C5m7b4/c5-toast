@@ -12,6 +12,9 @@
   max-height: $rt-toast-max-height;
   font-family: $rt-font-family;
   cursor: pointer;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
   &--dark {
     background: $rt-color-dark;
     color: $rt-text-color-dark;
@@ -35,44 +38,6 @@
     margin-left: 10px;
     display: flex;
     align-items: center;
-  }
-  &__top-right {
-    transform: translateX(110%);
-    -webkit-transform: translateX(110%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out
-      forwards;
-    animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out forwards;
-  }
-  &__bottom-right {
-    transform: translateX(110%);
-    -webkit-transform: translateX(110%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out
-      forwards;
-    animation: #{$rt-namespace}__slide-inFromRight 0.5s ease-in-out forwards;
-  }
-  &__top-left {
-    transform: translateX(-110%);
-    -webkit-transform: translateX(-110%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
-    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
-  }
-  &__bottom-left {
-    transform: translateX(-110%);
-    -webkit-transform: translateX(-110%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
-    animation: #{$rt-namespace}__slide-inFromLeft 0.5s forwards;
-  }
-  &__top-center {
-    transform: translateY(-110%) translateX(-50%);
-    -webkit-transform: translateY(-110%) translateX(-50%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromTop 0.5s forwards;
-    animation: #{$rt-namespace}__slide-inFromTop 0.5s forwards;
-  }
-  &__bottom-center {
-    transform: translateY(110%) translateX(-50%);
-    -webkit-transform: translateY(110%) translateX(-50%);
-    -webkit-animation: #{$rt-namespace}__slide-inFromBottom 0.5s forwards;
-    animation: #{$rt-namespace}__slide-inFromBottom 0.5s forwards;
   }
 }
 
