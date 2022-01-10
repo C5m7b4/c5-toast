@@ -1,36 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Toast } from '../Toast';
+import Toast from '../Toast';
 import { useToastContainer } from '../../hooks';
 import { ToastManager as toastManager, Event, ToastProps } from '../../core';
-import {
-  ToastContent,
-  ToastPosition,
-  TypeOptions,
-  Theme,
-  AnimationTypes,
-} from '../../types';
 import { Default } from '../../utils';
-
-export interface ToastContainerProps {
-  position: ToastPosition;
-  autoClose: boolean;
-  autoCloseDelay: number;
-  showIcons: boolean;
-  theme: Theme;
-  animation: AnimationTypes;
-  showLastOnTop: boolean;
-}
-
-export type OnShowCallback = {
-  content: ToastContent;
-  id: string;
-  type: TypeOptions;
-};
+import { ToastContainerProps } from '../../interfaces';
+import { OnShowCallback } from '../../types';
 
 const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const {
-    position,
+    position = 'top-right',
     autoClose,
     autoCloseDelay,
     showIcons,
