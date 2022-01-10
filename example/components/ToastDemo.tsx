@@ -24,11 +24,12 @@ export const ToastDemo = () => {
   const [type, setType] = useState('info');
   const [autoClose, setAutoClose] = useState(false);
   const [autoCloseDelay, setAutoCloseDelay] = useState(10000);
-  const [animation, setAnimation] = useState('flip');
+  const [animation, setAnimation] = useState('slide');
+  const [showLastOnTop, setShowLastOnTop] = useState(false);
 
   useEffect(() => {
     console.log('running useEffect in demo');
-  }, [type]);
+  }, [type, showLastOnTop]);
 
   const logCallback = () => {
     console.log('Im saying hello');
@@ -128,6 +129,14 @@ export const ToastDemo = () => {
           ))}
         </select>
       </div>
+      <div style={{ marginTop: '10px' }}>
+        <label>Show last on top</label>
+        <input
+          type="checkbox"
+          checked={showLastOnTop === true}
+          onChange={(e) => setShowLastOnTop(e.target.checked)}
+        />
+      </div>
 
       <ToastContainer
         autoClose={autoClose}
@@ -135,6 +144,7 @@ export const ToastDemo = () => {
         showIcons={true}
         position="top-right"
         animation={animation as AnimationTypes}
+        showLastOnTop={showLastOnTop}
       />
     </div>
   );
