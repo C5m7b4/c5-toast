@@ -18,7 +18,7 @@ export type ToastPosition =
 
 export type Theme = 'light' | 'dark' | 'colored';
 
-export type AnimationTypes = 'slide' | 'bounce' | 'spin' | 'zoom';
+export type AnimationTypes = 'slide' | 'bounce' | 'spin' | 'zoom' | 'flip';
 
 export type ToastClassName =
   | {
@@ -36,3 +36,14 @@ export interface ToastContentProps {
 //   | React.ReactNode
 //   | ((props: ToastContentProps) => React.ReactNode);
 export type ToastContent = React.ReactNode;
+
+interface CommonOptions {
+  pauseOnHover?: boolean;
+  closeOnClick?: boolean;
+  position?: ToastPosition;
+  onClick?: (event: React.MouseEvent) => void;
+}
+
+export interface ToastOptions extends CommonOptions {
+  animation?: AnimationTypes;
+}

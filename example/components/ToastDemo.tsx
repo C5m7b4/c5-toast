@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { TypeOptions } from '../../src/types';
+import { AnimationTypes, TypeOptions } from '../../src/types';
 
 import './ToastDemo.css';
 
 const types = ['info', 'warning', 'error', 'default', 'dark', 'success'];
+const animations: AnimationTypes[] = [
+  'slide',
+  'bounce',
+  'spin',
+  'zoom',
+  'flip',
+];
 
 import {
   ToastManager as toastManager,
@@ -15,8 +22,9 @@ export const ToastDemo = () => {
   const [text, setText] = useState('');
   const [id, setId] = useState('');
   const [type, setType] = useState('info');
-  const [autoClose, setAutoClose] = useState(true);
+  const [autoClose, setAutoClose] = useState(false);
   const [autoCloseDelay, setAutoCloseDelay] = useState(10000);
+  const [animation, setAnimation] = useState('flip');
 
   useEffect(() => {
     console.log('running useEffect in demo');
@@ -44,10 +52,14 @@ export const ToastDemo = () => {
         toast.dark(text);
         break;
       default:
-        toast.error(text);
+        toast.success(text);
     }
 
     setText('');
+  };
+
+  const capitalize = (s: string) => {
+    return s.charAt(0).toUpperCase() + s.slice(1);
   };
 
   return (
@@ -101,13 +113,26 @@ export const ToastDemo = () => {
           </React.Fragment>
         )}
       </div>
+      <div style={{ marginTop: '10px' }}>
+        <label>Animation Type: </label>
+        <select
+          value={animation}
+          onChange={(e) => setAnimation(e.target.value)}
+        >
+          {animations.map((animation, i) => (
+            <option key={`animation-${i}`} value={animation}>
+              {capitalize(animation)}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <ToastContainer
         autoClose={autoClose}
         autoCloseDelay={autoCloseDelay}
         showIcons={true}
         position="top-right"
-        animation="spin"
+        animation={animation as AnimationTypes}
       />
     </div>
   );

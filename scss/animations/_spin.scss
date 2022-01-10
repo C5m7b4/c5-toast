@@ -1,8 +1,40 @@
-@keyframes #{rt-namespace}__spin-fromTopRight {
+@keyframes #{$rt-namespace}__spin-in {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes #{$rt-namespace}__spin-out {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.#{$rt-namespace}__spin-enter {
+  &--top-right,
+  &--botton-right,
+  &--top-left,
+  &--bottom-left,
+  &--bottom-center,
+  &--top-center {
+    animation-name: #{$rt-namespace}__spin-in;
+  }
+}
+
+.#{$rt-namespace}__spin-exit {
+  &--top-right,
+  &--botton-right,
+  &--top-left,
+  &--bottom-left,
+  &--bottom-center,
+  &--top-center {
+    animation-name: #{$rt-namespace}__spin-out;
+    animation-duration: 0.5s;
   }
 }

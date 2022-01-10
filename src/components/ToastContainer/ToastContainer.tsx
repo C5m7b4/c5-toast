@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom';
 import { Toast } from '../Toast';
 import { useToastContainer } from '../../hooks';
 import { ToastManager as toastManager, Event, ToastProps } from '../../core';
-import { ToastContent, ToastPosition, TypeOptions, Theme } from '../../types';
+import {
+  ToastContent,
+  ToastPosition,
+  TypeOptions,
+  Theme,
+  AnimationTypes,
+} from '../../types';
 import { Default } from '../../utils';
 
 export interface ToastContainerProps {
@@ -12,6 +18,7 @@ export interface ToastContainerProps {
   autoCloseDelay: number;
   showIcons: boolean;
   theme: Theme;
+  animation: AnimationTypes;
 }
 
 export type OnShowCallback = {
@@ -26,6 +33,7 @@ export const ToastContainer = ({
   autoCloseDelay,
   showIcons,
   theme,
+  animation,
 }: ToastContainerProps) => {
   const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
@@ -47,39 +55,15 @@ export const ToastContainer = ({
         if (toast) {
           const toastDiv = document.getElementById(toast.id);
           if (toastDiv) {
-            if (position == 'top-right' || position == 'bottom-right') {
-              toastDiv.classList.remove(
-                `${Default.CSS_NAMESPACE}__slide-inFromRight`
-              );
-              toastDiv.classList.add(
-                `${Default.CSS_NAMESPACE}__slide-outToRight`
-              );
-              toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToRight 1s ease forwards`;
-            } else if (position == 'top-left' || position == 'bottom-left') {
-              toastDiv.classList.remove(
-                `${Default.CSS_NAMESPACE}__slide-inFromLeft`
-              );
-              toastDiv.classList.add(
-                `${Default.CSS_NAMESPACE}__slide-outToLeft`
-              );
-              toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToLeft .5s ease forwards`;
-            } else if (position == 'top-center') {
-              toastDiv.classList.remove(
-                `${Default.CSS_NAMESPACE}__slide-inFromTop`
-              );
-              toastDiv.classList.add(
-                `${Default.CSS_NAMESPACE}__slide-outToTop`
-              );
-              toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToTop .5s ease forwards`;
-            } else if (position == 'bottom-center') {
-              toastDiv.classList.remove(
-                `${Default.CSS_NAMESPACE}__slide-inFrombottom`
-              );
-              toastDiv.classList.add(
-                `${Default.CSS_NAMESPACE}__slide-outToBottom`
-              );
-              toastDiv.style.animation = `${Default.CSS_NAMESPACE}__slide-outToBottom .5s ease forwards`;
-            }
+            toastDiv.classList.remove(
+              `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`
+            );
+            toastDiv.classList.add(
+              `${Default.CSS_NAMESPACE}__${animation}-exit--${position}`
+            );
+
+            toastDiv.style.animationDuration = '1s';
+            toastDiv.style.animationFillMode = 'forwards';
 
             // now we can call another setTimeout used to remove the element entirely
             setTimeout(() => {
@@ -109,6 +93,8 @@ export const ToastContainer = ({
             showIcon={showIcons}
             theme={theme}
             position={position}
+            animation={animation}
+            toastAnimation={event.toastAnimation}
           />
         ))}
       </div>,
