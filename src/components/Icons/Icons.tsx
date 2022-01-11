@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { TypeOptions, Theme } from '../types';
-import { Default } from '../utils';
+import { TypeOptions, Theme } from '../../types';
+import { Default } from '../../utils';
 
 export interface IconProps {
   theme: Theme;
