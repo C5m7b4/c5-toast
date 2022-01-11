@@ -2,16 +2,11 @@ import { ToastManager as toastManager, Event } from './toastManager';
 import { ToastOptions, TypeOptions } from '../types';
 import { TYPE } from '../utils';
 import { ToastContent } from '../types';
+import { Toast } from '../interfaces';
 
 const createToastByType =
   (type: TypeOptions) => (content: ToastContent, options?: ToastOptions) =>
     toast({ content, type, options });
-
-export interface Toast {
-  content: ToastContent;
-  type: TypeOptions;
-  options?: ToastOptions;
-}
 
 const toast = (props: Toast) => {
   const { content, type, options } = props;
