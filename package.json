@@ -10,11 +10,12 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c && npm run bundle:sass",
+    "build": "rollup -c && npm run bundle:sass && npm run minify",
     "build:watch": "rollup -c --watch",
     "test": "jest",
     "test:watch": "jest --watch",
-    "bundle:sass":"sass scss/main.scss dist/css/c5-toastify.css"
+    "bundle:sass": "sass scss/main.scss dist/css/c5-toastify.css",
+    "minify": "postcss dist/css/c5-toastify.css > dist/css/c5-toastify.min.css"
   },
   "keywords": [],
   "author": "C5m7b4",
@@ -40,10 +41,13 @@
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "babel-jest": "^27.4.6",
+    "cssnano": "^5.0.15",
     "eslint": "^8.6.0",
     "eslint-plugin-react": "^7.28.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.7",
+    "postcss": "^8.4.5",
+    "postcss-cli": "^9.1.0",
     "prettier": "^2.5.1",
     "rollup": "^2.63.0",
     "rollup-plugin-dts": "^4.1.0",
