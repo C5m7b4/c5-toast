@@ -5,13 +5,16 @@ import { ToastContent } from '../types';
 
 const createToastByType =
   (type: TypeOptions) => (content: ToastContent, options?: ToastOptions) =>
-    toast(content, type, options);
+    toast({ content, type, options });
 
-const toast = (
-  content: ToastContent,
-  type: TypeOptions,
-  options?: ToastOptions
-) => {
+export interface Toast {
+  content: ToastContent;
+  type: TypeOptions;
+  options?: ToastOptions;
+}
+
+const toast = (props: Toast) => {
+  const { content, type, options } = props;
   console.log(`creating toast with content: ${content} and type: ${type}`);
   toastManager.publish(Event.Show, { content, type, options });
 };
