@@ -7,11 +7,17 @@ import {
   TypeOptions,
 } from '..';
 
-// export interface CoreToastProps {
-//   content: ToastContent;
-//   type: TypeOptions;
-//   options?: ToastOptions;
-// }
+export interface CoreToastProps {
+  content: React.ReactNode;
+  type: TypeOptions;
+  animation?: AnimationTypes | undefined;
+  pauseOnHover?: boolean | undefined;
+  closeOnClick?: boolean | undefined;
+  position?: ToastPosition | undefined;
+  onClick?: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
+  options?: ToastOptions;
+  id?: string | null;
+}
 
 export interface ToastContainerProps {
   position?: ToastPosition;
@@ -39,4 +45,5 @@ export interface ToastManagerToastProps {
   id: string;
   type: TypeOptions;
   position: ToastPosition;
+  options?: ToastOptions;
 }
