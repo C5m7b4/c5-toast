@@ -2,20 +2,32 @@ import { ToastManager as toastManager, Event } from './toastManager';
 import { ToastOptions, TypeOptions } from '../types';
 import { TYPE } from '../utils';
 import { ToastContent } from '../types';
+import { CoreToastProps } from '../interfaces';
 
-const createToastByType =
-  (type: string) => (content: ToastContent, options?: ToastOptions) =>
-    toastManager.publish(Event.Show, mergeOptions(type, options));
-
-function mergeOptions(type: string, options?: ToastOptions) {
+function mergeOptions(
+  content: ToastContent,
+  type: string,
+  options?: ToastOptions
+) {
   return {
     ...options,
-    type: (options && options.type) || type,
+    content,
+    type: (options && options.type) || (type as TypeOptions),
   };
 }
 
+const createToastByType =
+  (type: string) => (content: ToastContent, options?: ToastOptions) =>
+    toastManager.publish(
+      Event.Show,
+      mergeOptions(content, type, options) as CoreToastProps
+    );
+
 const toast = (content: ToastContent, options?: ToastOptions) =>
-  toastManager.publish(Event.Show, mergeOptions(TYPE.DEFAULT, options));
+  toastManager.publish(
+    Event.Show,
+    mergeOptions(content, TYPE.DEFAULT, options) as CoreToastProps
+  );
 
 toast.success = createToastByType(TYPE.SUCCESS);
 toast.info = createToastByType(TYPE.INFO);
