@@ -1,13 +1,17 @@
 import { generateToastId } from '../utils';
-import { TypeOptions, ToastContent, ToastPosition } from '../types';
-import { ToastManagerToastProps } from '../interfaces';
+import { ToastPosition } from '../types';
+import { CoreToastProps, ToastManagerToastProps } from '../interfaces';
 
-let subscribers: any[] = [];
+const subscribers: any[] = [];
 
 export const enum Event {
   Show,
   Clear,
 }
+
+type SubscriberEvent = (toast: CoreToastProps) => void;
+
+type SubscriberEventArray = SubscriberEvent[];
 
 export let toastList: ToastManagerToastProps[] = [];
 
@@ -15,7 +19,7 @@ export const ToastManager = {
   toastContainerId: '',
   toastPosition: '',
 
-  publish(event: Event, data: any) {
+  publish(event: Event, data: CoreToastProps) {
     if (!subscribers[event]) return;
 
     if (event == Event.Show) {
@@ -23,22 +27,28 @@ export const ToastManager = {
       const newToast = {
         ...data,
         id: newToastId,
-        position: this.toastPosition,
+        position: this.toastPosition as ToastPosition,
         toastAnimation: data.options?.animation || null,
       };
 
       toastList.push(newToast);
 
-      subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
-        subscriberCallback(newToast);
-      });
+      const subscriberEvent: SubscriberEventArray = subscribers[event];
+      if (subscriberEvent) {
+        subscriberEvent.forEach((subscriberCallback: SubscriberEvent) => {
+          subscriberCallback(newToast);
+        });
+      }
     } else {
       // we need to remove this toast from the list
       const newToastList = toastList.filter((t) => t.id !== data.id);
       toastList = newToastList;
-      subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
-        subscriberCallback(data);
-      });
+      const subscriberEvent: SubscriberEventArray = subscribers[event];
+      if (subscriberEvent) {
+        subscriberEvent.forEach((subscriberCallback: (arg0: any) => void) => {
+          subscriberCallback(data);
+        });
+      }
     }
   },
 
