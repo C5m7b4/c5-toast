@@ -5,7 +5,7 @@ import { useToastContainer } from '../../hooks';
 import { ToastManager as toastManager, Event } from '../../core';
 import { Default } from '../../utils';
 import { ToastContainerProps, ToastManagerToastProps } from '../../interfaces';
-import { OnShowCallback } from '../../types';
+import { OnShowCallback, ToastOptions } from '../../types';
 
 const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const {
@@ -70,7 +70,7 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   if (domElement && loaded) {
     return ReactDOM.createPortal(
       <div className={`${Default.CSS_NAMESPACE}__toast-container`}>
-        {toasts.map((event: any, i: number) => (
+        {toasts.map((event: OnShowCallback, i: number) => (
           <Toast
             key={`toast-${i}`}
             id={event.id}
