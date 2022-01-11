@@ -7,21 +7,21 @@ import { Icons } from '../Icons';
 import { ToastProps } from '../../interfaces';
 
 const Toast: React.FC<ToastProps> = (props) => {
-  let {
+  const {
     content,
     id,
     type,
     showIcon,
     theme = 'light',
     position = 'top-right',
-    animation = 'slide',
     toastAnimation,
   } = props;
+  let { animation = 'slide' } = props;
 
   if (toastAnimation) {
     animation = toastAnimation;
   }
-  let divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
+  const divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
 
   const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName}`;
   const maybeIcon = Icons[type as keyof typeof Icons];
