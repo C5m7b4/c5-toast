@@ -1,12 +1,6 @@
 import { generateToastId } from '../utils';
 import { TypeOptions, ToastContent, ToastPosition } from '../types';
-
-export interface ToastProps {
-  content: ToastContent;
-  id: string;
-  type: TypeOptions;
-  position: ToastPosition;
-}
+import { ToastManagerToastProps } from '../interfaces';
 
 let subscribers: any[] = [];
 
@@ -15,7 +9,7 @@ export const enum Event {
   Clear,
 }
 
-export let toastList: ToastProps[] = [];
+export let toastList: ToastManagerToastProps[] = [];
 
 export const ToastManager = {
   toastContainerId: '',

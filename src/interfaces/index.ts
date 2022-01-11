@@ -33,3 +33,10 @@ export interface ToastProps {
   animation?: AnimationTypes;
   toastAnimation?: AnimationTypes;
 }
+
+export interface ToastManagerToastProps {
+  content: ToastContent;
+  id: string;
+  type: TypeOptions;
+  position: ToastPosition;
+}

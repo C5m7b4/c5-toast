@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Toast from '../Toast';
 import { useToastContainer } from '../../hooks';
-import { ToastManager as toastManager, Event, ToastProps } from '../../core';
+import { ToastManager as toastManager, Event } from '../../core';
 import { Default } from '../../utils';
-import { ToastContainerProps } from '../../interfaces';
+import { ToastContainerProps, ToastManagerToastProps } from '../../interfaces';
 import { OnShowCallback } from '../../types';
 
 const ToastContainer: React.FC<ToastContainerProps> = (props) => {
@@ -19,7 +19,7 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   } = props;
   const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
-  const [toasts, setToasts] = useState<ToastProps[]>([]);
+  const [toasts, setToasts] = useState<ToastManagerToastProps[]>([]);
 
   useEffect(() => {
     console.log('rendering toast container');
