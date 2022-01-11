@@ -3,36 +3,24 @@ import { ToastOptions, TypeOptions } from '../types';
 import { TYPE } from '../utils';
 import { ToastContent } from '../types';
 
-// const createToastByType =
-//   (type: TypeOptions) => (content: ToastContent, options?: ToastOptions) =>
-//     toast({ content, type, options });
+const createToastByType =
+  (type: string) => (content: ToastContent, options?: ToastOptions) =>
+    toastManager.publish(Event.Show, mergeOptions(type, options));
 
-function toast(
-  content: ToastContent,
-  type?: TypeOptions,
-  options?: ToastOptions
-) {
-  if (options) {
-    toastManager.publish(Event.Show, { content, type, options });
-  } else {
-    toastManager.publish(Event.Show, { content });
-  }
+function mergeOptions(type: string, options?: ToastOptions) {
+  return {
+    ...options,
+    type: (options && options.type) || type,
+  };
 }
 
-toast.success = function (content: ToastContent, options?: ToastOptions) {
-  toast(content, TYPE.SUCCESS, options);
-};
+const toast = (content: ToastContent, options?: ToastOptions) =>
+  toastManager.publish(Event.Show, mergeOptions(TYPE.DEFAULT, options));
 
-// const toast = (props: CoreToastProps) => {
-//   const { content, type, options } = props;
-//   console.log(`creating toast with content: ${content} and type: ${type}`);
-//   toastManager.publish(Event.Show, { content, type, options });
-// };
-
-// toast.success = createToastByType(TYPE.SUCCESS);
-// toast.warning = createToastByType(TYPE.WARNING);
-// toast.error = createToastByType(TYPE.ERROR);
-// toast.info = createToastByType(TYPE.INFO);
-// toast.dark = createToastByType(TYPE.DARK);
+toast.success = createToastByType(TYPE.SUCCESS);
+toast.info = createToastByType(TYPE.INFO);
+toast.warning = createToastByType(TYPE.WARNING);
+toast.error = createToastByType(TYPE.ERROR);
+toast.warn = toast.warning;
 
 export { toast };
