@@ -2,9 +2,16 @@ import {
   AnimationTypes,
   Theme,
   ToastContent,
+  ToastOptions,
   ToastPosition,
   TypeOptions,
 } from '..';
+
+export interface Toast {
+  content: ToastContent;
+  type: TypeOptions;
+  options?: ToastOptions;
+}
 
 export interface ToastContainerProps {
   position?: ToastPosition;
