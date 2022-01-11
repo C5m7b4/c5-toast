@@ -46,6 +46,7 @@ interface CommonOptions {
 
 export interface ToastOptions extends CommonOptions {
   animation?: AnimationTypes;
+  type: TypeOptions;
 }
 
 export type OnShowCallback = {
