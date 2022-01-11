@@ -51,10 +51,15 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
             toastDiv.style.animationDuration = '1s';
             toastDiv.style.animationFillMode = 'forwards';
 
+            // TODO: Remove the error type!!
             // now we can call another setTimeout used to remove the element entirely
             setTimeout(() => {
               console.log(`auto clearing toast with id: ${toast.id}`);
-              toastManager.publish(Event.Clear, { id: toast.id });
+              toastManager.publish(Event.Clear, {
+                id: toast.id,
+                content: null,
+                type: 'error',
+              });
             }, 550);
           }
         }
