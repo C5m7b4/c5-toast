@@ -7,11 +7,11 @@ import {
   TypeOptions,
 } from '..';
 
-export interface Toast {
-  content: ToastContent;
-  type: TypeOptions;
-  options?: ToastOptions;
-}
+// export interface CoreToastProps {
+//   content: ToastContent;
+//   type: TypeOptions;
+//   options?: ToastOptions;
+// }
 
 export interface ToastContainerProps {
   position?: ToastPosition;
