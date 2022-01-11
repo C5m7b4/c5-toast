@@ -21,9 +21,7 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const domElement = document.getElementById(portalId);
   const [toasts, setToasts] = useState<ToastManagerToastProps[]>([]);
 
-  useEffect(() => {
-    console.log('rendering toast container');
-  }, [toasts]);
+  useEffect(() => {}, [toasts]);
 
   toastManager.subscribe(Event.Show, (toast: OnShowCallback) => {
     console.log(`adding toast from subscripiton: ${toast}`);
@@ -54,10 +52,9 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
             // TODO: Remove the error type!!
             // now we can call another setTimeout used to remove the element entirely
             setTimeout(() => {
-              console.log(`auto clearing toast with id: ${toast.id}`);
               toastManager.publish(Event.Clear, {
                 id: toast.id,
-                content: null,
+                content: '',
                 type: 'error',
               });
             }, 550);
