@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Toast from '../Toast';
 import { useToastContainer } from '../../hooks';
-import { ToastManager as toastManager, Event } from '../../core';
+import { toastManager, Event } from '../../core';
 import { Default } from '../../utils';
 import { ToastContainerProps, ToastManagerToastProps } from '../../interfaces';
-import { OnShowCallback } from '../../types';
+import { ToastContent } from '../../../dist';
+import { NotValidatedToastProps, Id } from '../../types';
 
 const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const {
@@ -25,8 +26,10 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
     console.log('rendering toast container');
   }, [toasts]);
 
-  toastManager.subscribe(Event.Show, (toast: OnShowCallback) => {
-    console.log(`adding toast from subscripiton: ${toast}`);
+  function buildToast(
+    content: ToastContent,
+    { ...options }: NotValidatedToastProps
+  ) {
     let toastList = [...toastManager.getToastList()];
     if (showLastOnTop) {
       toastList = toastList.reverse();
@@ -35,37 +38,39 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
 
     if (autoClose) {
       setTimeout(() => {
-        // if we use the id of the div, we can change the classname to slide-out
-        // then wait the appropriate amount of time
-        // and them remove the element
-        if (toast) {
-          const toastDiv = document.getElementById(toast.id);
-          if (toastDiv) {
-            toastDiv.classList.remove(
-              `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`
-            );
-            toastDiv.classList.add(
-              `${Default.CSS_NAMESPACE}__${animation}-exit--${position}`
-            );
+        const toastDiv = document.getElementById(options.toastId as string);
+        if (toastDiv) {
+          toastDiv.classList.remove(
+            `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`
+          );
+          toastDiv.classList.add(
+            `${Default.CSS_NAMESPACE}__${animation}-exit--${position}`
+          );
 
-            toastDiv.style.animationDuration = '1s';
-            toastDiv.style.animationFillMode = 'forwards';
+          toastDiv.style.animationDuration = '1s';
+          toastDiv.style.animationFillMode = 'forwards';
 
-            // now we can call another setTimeout used to remove the element entirely
-            setTimeout(() => {
-              console.log(`auto clearing toast with id: ${toast.id}`);
-              toastManager.publish(Event.Clear, { id: toast.id });
-            }, 550);
-          }
+          // now we can call another setTimeout used to remove the element entirely
+          setTimeout(() => {
+            toastManager.publish(Event.Clear, options.toastId);
+          }, 550);
         }
       }, autoCloseDelay);
     }
-  });
+  }
 
-  toastManager.subscribe(Event.Clear, (toast: OnShowCallback) => {
-    console.log(`removing toast: ${toast.id}`);
+  toastManager.subscribe(Event.Show, buildToast);
+
+  //function removeToast(toastId: Id)
+  function removeToast() {
     setToasts(toastManager.getToastList());
-  });
+  }
+
+  // TODO: we could actually put the toast removal here instead of where we put it below
+  // to do so set the argument to removeToast to toastId as Id
+  // and add toastId as the argument
+  // toastManager.subscribe(Event.Clear, (toastId) => removeToast(toastId as Id));
+  toastManager.subscribe(Event.Clear, () => removeToast());
 
   if (domElement && loaded) {
     return ReactDOM.createPortal(
