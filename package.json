@@ -15,7 +15,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "bundle:sass": "sass scss/main.scss dist/css/c5-toastify.css",
-    "minify": "postcss dist/css/c5-toastify.css > dist/css/c5-toastify.min.css"
+    "minify": "postcss dist/css/c5-toastify.css > dist/css/c5-toastify.min.css",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet"
   },
   "keywords": [],
   "author": "C5m7b4",
