@@ -94,6 +94,8 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
               options={event.options}
               toastShowIcon={event.toastShowIcon}
               toastAutoClose={event.toastAutoClose}
+              toastClassName={event.toastClassName}
+              toastBodyStyle={event.toastBodyStyle}
             />
           );
         })}
