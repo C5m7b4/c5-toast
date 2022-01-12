@@ -11,16 +11,18 @@ import { Id, NotValidatedToastProps, ToastProps } from '../../types';
 const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const {
     position = 'top-right',
-    autoClose,
     autoCloseDelay,
     showIcons,
     theme,
     animation,
     showLastOnTop,
   } = props;
+
   const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
   const [toasts, setToasts] = useState<ToastProps[]>([]);
+
+  let { autoClose } = props;
 
   useEffect(() => {}, [toasts]);
 
@@ -33,6 +35,10 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
       toastList = toastList.reverse();
     }
     setToasts(toastList);
+
+    if (options.autoClose === true || options.autoClose === false) {
+      autoClose = options.autoClose;
+    }
 
     if (autoClose) {
       setTimeout(() => {
