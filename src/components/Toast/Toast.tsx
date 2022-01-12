@@ -13,6 +13,8 @@ const Toast: React.FC<ToastProps> = (props) => {
     position = 'top-right',
     toastAnimation,
     toastShowIcon,
+    toastClassName,
+    toastBodyStyle,
   } = props;
   let { animation = 'slide', showIcon = false } = props;
 
@@ -24,7 +26,7 @@ const Toast: React.FC<ToastProps> = (props) => {
   }
   const divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
 
-  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName}`;
+  const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName} ${toastClassName}`;
   const maybeIcon = Icons[type as keyof typeof Icons];
   const iconProps = { theme, type };
   let Icon: React.ReactNode = maybeIcon && maybeIcon(iconProps);
@@ -64,6 +66,7 @@ const Toast: React.FC<ToastProps> = (props) => {
   return (
     <div
       className={classNames}
+      style={toastBodyStyle}
       id={toastId as string}
       onClick={handleRemoveToast}
       role="main"
