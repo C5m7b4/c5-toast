@@ -64,7 +64,8 @@ export const toastManager: ToastManager = {
     this.list.has(event) &&
       this.list.get(event)!.forEach((callback: Callback) => {
         if (event == Event.Show) {
-          const { toastId, type, autoClose, showIcon } = args[1];
+          const { toastId, type, autoClose, showIcon, className, bodyStyle } =
+            args[1];
           const content = args[0];
           const options = args[1];
 
@@ -77,6 +78,8 @@ export const toastManager: ToastManager = {
             toastAnimation: options.animation || undefined,
             toastAutoClose: autoClose,
             toastShowIcon: showIcon,
+            toastClassName: className,
+            toastBodyStyle: bodyStyle,
           };
 
           this.toastList.push(newToast);
