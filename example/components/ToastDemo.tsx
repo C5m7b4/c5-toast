@@ -97,11 +97,27 @@ export const ToastDemo = () => {
       si = toastShowIcon;
     }
 
-    const options = {
+    let className = null;
+
+    if (type == 'custom') {
+      className = 'testClass';
+    }
+
+    let bodyStyle = {};
+    if (type == 'custom') {
+      bodyStyle = {
+        borderRadius: '20px',
+      };
+    }
+
+    let options = {
       animation: anim,
       autoClose: ac,
       showIcon: si,
+      className,
+      bodyStyle,
     };
+
     switch (type) {
       case 'success':
         toast.success(text, options);
@@ -172,6 +188,18 @@ export const ToastDemo = () => {
                 </li>
               );
             })}
+            <li>
+              <label htmlFor="custom">
+                <input
+                  type="radio"
+                  name="custom"
+                  value={type}
+                  onChange={() => setType('custom')}
+                  checked={type == 'custom'}
+                />
+                Custom 🐱‍🚀
+              </label>
+            </li>
           </ul>
         </div>
       </div>
