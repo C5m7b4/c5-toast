@@ -3,6 +3,18 @@ import { AnimationTypes, TypeOptions } from '../../src/types';
 
 import './ToastDemo.css';
 
+const MadButton = () => {
+  return (
+    <div>
+      <h2>This is a really cool toast</h2>
+      <p>Here is a paragraph</p>
+      <p>
+        I'm not going to close on my own, so click me when you are done reading.
+      </p>
+    </div>
+  );
+};
+
 const types = ['info', 'warning', 'error', 'default', 'dark', 'success'];
 const animations: AnimationTypes[] = [
   'slide',
@@ -22,17 +34,24 @@ export const ToastDemo = () => {
   const [text, setText] = useState('');
   const [id, setId] = useState('');
   const [type, setType] = useState('info');
-  const [autoClose, setAutoClose] = useState(false);
-  const [autoCloseDelay, setAutoCloseDelay] = useState(10000);
+  const [autoClose, setAutoClose] = useState(true);
+  const [autoCloseDelay, setAutoCloseDelay] = useState(3000);
   const [animation, setAnimation] = useState('slide');
   const [showLastOnTop, setShowLastOnTop] = useState(true);
 
   useEffect(() => {
-    console.log('running useEffect in demo');
-  }, [type, showLastOnTop]);
+    console.log('rerendering demo');
+  }, [type, showLastOnTop, autoClose, animation]);
 
   const logCallback = () => {
     console.log('Im saying hello');
+  };
+
+  const madButton = () => {
+    toast.success(<MadButton />, {
+      autoClose: false,
+      showIcon: false,
+    });
   };
 
   const handleRegister = () => {
@@ -67,9 +86,6 @@ export const ToastDemo = () => {
 
   return (
     <div>
-      <div>
-        <button onClick={handleRegister}>Register</button>
-      </div>
       <div>
         {types.map((option: string, i: number) => {
           return (
@@ -146,6 +162,12 @@ export const ToastDemo = () => {
         animation={animation as AnimationTypes}
         showLastOnTop={showLastOnTop}
       />
+      <div>
+        <button onClick={handleRegister}>Register</button>
+        <button style={{ marginLeft: '10px' }} onClick={madButton}>
+          Awesome Button
+        </button>
+      </div>
     </div>
   );
 };
