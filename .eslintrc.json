@@ -33,7 +33,11 @@
         "jsx-a11y/no-noninteractive-element-interactions": 0,
         "no-debugger": 0,
         "@typescript-eslint/no-non-null-assertion": 0,
-        "@typescript-eslint/ban-ts-comment": 0
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/no-unnecessary-type-assertion": 0,
+        "@typescript-eslint/no-unsafe-argument": 0,
+        "@typescript-eslint/no-unsafe-member-access": 0,
+        "@typescript-eslint/no-unsafe-assignment": 0
     },
     "plugins":[
         "react", "import", "jsx-a11y", "@typescript-eslint"
