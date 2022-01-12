@@ -85,6 +85,9 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
               position={position}
               animation={animation || undefined}
               toastAnimation={event.toastAnimation}
+              options={event.options}
+              toastShowIcon={event.toastShowIcon}
+              toastAutoClose={event.toastAutoClose}
             />
           );
         })}
