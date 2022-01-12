@@ -309,3 +309,8 @@ h3 {
 input[type='checkbox'] {
   margin-left: 10px;
 }
+
+.testClass {
+  background-color: rgb(17, 46, 71) !important;
+  color: #fff !important;
+}
