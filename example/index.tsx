@@ -7,7 +7,7 @@ import '../scss/main.scss';
 const App = () => {
   return (
     <div>
-      <h2>Toasts</h2>
+      <h2>Toasts Demo</h2>
       <ToastDemo />
     </div>
   );
