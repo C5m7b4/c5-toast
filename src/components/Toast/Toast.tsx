@@ -9,15 +9,18 @@ const Toast: React.FC<ToastProps> = (props) => {
     content,
     toastId,
     type,
-    showIcon,
     theme = 'light',
     position = 'top-right',
     toastAnimation,
+    toastShowIcon,
   } = props;
-  let { animation = 'slide' } = props;
+  let { animation = 'slide', showIcon = false } = props;
 
   if (toastAnimation) {
     animation = toastAnimation as AnimationTypes;
+  }
+  if (toastShowIcon === true || toastShowIcon === false) {
+    showIcon = toastShowIcon;
   }
   const divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
 
