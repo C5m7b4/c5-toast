@@ -3,8 +3,8 @@ import {
   ToastPosition,
   NotValidatedToastProps,
   Id,
+  ToastProps,
 } from '../types';
-import { ToastManagerToastProps } from '../interfaces';
 
 // const subscribers: any[] = [];
 
@@ -26,7 +26,7 @@ type Callback = OnShowCallback | OnClearCallback;
 
 export interface ToastManager {
   list: Map<Event, Callback[]>;
-  toastList: ToastManagerToastProps[];
+  toastList: ToastProps[];
   toastContainerId: string;
   toastPosition: ToastPosition;
   subscribe(event: Event, callback: OnShowCallback): ToastManager;
@@ -38,7 +38,7 @@ export interface ToastManager {
     options: NotValidatedToastProps
   ): void;
 
-  getToastList(): ToastManagerToastProps[];
+  getToastList(): ToastProps[];
   setContainerId(id: string): void;
   getContainerId(): string;
   setToastPosition(position: ToastPosition): void;
@@ -57,13 +57,10 @@ export const toastManager: ToastManager = {
       this.list.get(event)!.push(callback);
     }
 
-    console.log('subscribers', this.list);
     return this;
   },
 
   publish(event: Event, ...args: any[]) {
-    debugger;
-    console.log('args', ...args);
     this.list.has(event) &&
       this.list.get(event)!.forEach((callback: Callback) => {
         if (event == Event.Show) {
@@ -74,7 +71,7 @@ export const toastManager: ToastManager = {
           const newToast = {
             content,
             type,
-            id: toastId,
+            toastId: toastId,
             position: this.toastPosition,
             options: args[1],
             toastAnimation: options.animation || undefined,
@@ -89,7 +86,7 @@ export const toastManager: ToastManager = {
         } else {
           // we need to remove this toast from the list
           const newToastList = this.toastList.filter(
-            (t) => t.id !== args[1].toastId
+            (t) => t.toastId !== args[1].toastId
           );
           this.toastList = newToastList;
           const timer: TimeoutId = setTimeout(() => {
