@@ -8,7 +8,6 @@ function dispatchToast(
   content: ToastContent,
   options: NotValidatedToastProps
 ): Id {
-  debugger;
   toastManager.publish(Event.Show, content, options);
   return options.toastId;
 }
