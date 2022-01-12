@@ -53,6 +53,7 @@ export const ToastDemo = () => {
   const [animation, setAnimation] = useState<AnimationTypes>('slide');
   const [showLastOnTop, setShowLastOnTop] = useState(true);
   const [showIcons, setShowIcons] = useState(true);
+  const [position, setPosition] = useState<ToastPosition>('top-right');
 
   const [toastAutoClose, setToastAutoClose] = useState(true);
   const [toastShowIcon, setToastShowIcon] = useState(true);
@@ -69,6 +70,8 @@ export const ToastDemo = () => {
     toastAutoClose,
     toastShowIcon,
   ]);
+
+  useEffect(() => {}, [position]);
 
   const logCallback = () => {
     console.log('Im saying hello');
@@ -213,7 +216,10 @@ export const ToastDemo = () => {
       </div>
       <div className="demo-position">
         <label>Position: </label>
-        <select>
+        <select
+          value={position}
+          onChange={(e) => setPosition(e.target.value as ToastPosition)}
+        >
           {positions.map((pos: ToastPosition, i: number) => (
             <option key={`pos-${i}`} value={pos}>
               {pos.toUpperCase()}
@@ -316,7 +322,7 @@ export const ToastDemo = () => {
         autoClose={autoClose}
         autoCloseDelay={autoCloseDelay}
         showIcons={true}
-        position="top-right"
+        position={position}
         animation={animation as AnimationTypes}
         showLastOnTop={showLastOnTop}
       />
