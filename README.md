@@ -55,3 +55,23 @@ The ToastContainer can take in these props:
   animation="zoom"
 />
 ```
+
+You can also customize the toast like this:
+
+```css
+.testToast {
+  background-color: rgb(17, 46, 71) !important;
+  color: #fff !important;
+}
+```
+
+```js
+toast.success('Here is my toast 🦝', {
+  className: 'testToast',
+  style: {
+    borderRadius: '20px',
+  },
+  showIcon={false}
+  autoClose={false}
+});
+```
