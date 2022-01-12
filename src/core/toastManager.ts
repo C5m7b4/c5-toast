@@ -1,69 +1,107 @@
-import { generateToastId } from '../utils';
-import { TypeOptions, ToastContent, ToastPosition } from '../types';
+import {
+  ToastContent,
+  ToastPosition,
+  NotValidatedToastProps,
+  Id,
+} from '../types';
 import { ToastManagerToastProps } from '../interfaces';
 
-let subscribers: any[] = [];
+// const subscribers: any[] = [];
+
+type TimeoutId = ReturnType<typeof setTimeout>;
 
 export const enum Event {
   Show,
   Clear,
 }
 
-export let toastList: ToastManagerToastProps[] = [];
+export type OnShowCallback = (
+  content: ToastContent,
+  options: NotValidatedToastProps
+) => void;
 
-export const ToastManager = {
+export type OnClearCallback = (id?: Id) => void;
+
+type Callback = OnShowCallback | OnClearCallback;
+
+export interface ToastManager {
+  list: Map<Event, Callback[]>;
+  toastList: ToastManagerToastProps[];
+  toastContainerId: string;
+  toastPosition: ToastPosition;
+  subscribe(event: Event, callback: OnShowCallback): ToastManager;
+  subscribe(event: Event, callback: OnClearCallback): ToastManager;
+  publish(event: Event.Clear, id?: string | number): void;
+  publish(
+    event: Event.Show,
+    content: ToastContent,
+    options: NotValidatedToastProps
+  ): void;
+
+  getToastList(): ToastManagerToastProps[];
+  setContainerId(id: string): void;
+  getContainerId(): string;
+  setToastPosition(position: ToastPosition): void;
+}
+
+export const toastManager: ToastManager = {
+  list: new Map(),
+  toastList: [],
   toastContainerId: '',
-  toastPosition: '',
+  toastPosition: 'top-right',
 
-  publish(event: Event, data: any) {
-    if (!subscribers[event]) return;
-
-    if (event == Event.Show) {
-      const newToastId = generateToastId();
-      const newToast = {
-        ...data,
-        id: newToastId,
-        position: this.toastPosition,
-        toastAnimation: data.options?.animation || null,
-      };
-
-      toastList.push(newToast);
-
-      subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
-        subscriberCallback(newToast);
-      });
-    } else {
-      // we need to remove this toast from the list
-      const newToastList = toastList.filter((t) => t.id !== data.id);
-      toastList = newToastList;
-      subscribers[event].forEach((subscriberCallback: (arg0: any) => void) => {
-        subscriberCallback(data);
-      });
+  subscribe(event: Event, callback: Callback) {
+    this.list.has(event) || this.list.set(event, []);
+    const listLength = this.list.get(event)!.length;
+    if (listLength === 0) {
+      this.list.get(event)!.push(callback);
     }
+
+    console.log('subscribers', this.list);
+    return this;
   },
 
-  subscribe(event: Event, callback: any) {
-    console.log(`event:${event} is subscribing`);
-    if (!subscribers[event]) {
-      subscribers[event] = [];
-    }
+  publish(event: Event, ...args: any[]) {
+    debugger;
+    console.log('args', ...args);
+    this.list.has(event) &&
+      this.list.get(event)!.forEach((callback: Callback) => {
+        if (event == Event.Show) {
+          const { toastId, type } = args[1];
+          const content = args[0];
+          const options = args[1];
 
-    let eventAlreadyExists = false;
+          const newToast = {
+            content,
+            type,
+            id: toastId,
+            position: this.toastPosition,
+            options: args[1],
+            toastAnimation: options.animation || undefined,
+          };
 
-    subscribers[event].forEach((event: any) => {
-      if (event.toString() == callback.toString()) {
-        eventAlreadyExists = true;
-      }
-    });
+          this.toastList.push(newToast);
 
-    if (!eventAlreadyExists) {
-      subscribers[event].push(callback);
-    }
-
-    console.log('subscribers', subscribers);
+          const timer: TimeoutId = setTimeout(() => {
+            // @ts-ignore
+            callback(newToast, options);
+          }, 0);
+        } else {
+          // we need to remove this toast from the list
+          const newToastList = this.toastList.filter(
+            (t) => t.id !== args[1].toastId
+          );
+          this.toastList = newToastList;
+          const timer: TimeoutId = setTimeout(() => {
+            // @ts-ignore
+            callback(...args);
+          }, 0);
+        }
+      });
   },
+
   getToastList() {
-    return toastList;
+    return this.toastList;
   },
 
   setContainerId(id: string) {
