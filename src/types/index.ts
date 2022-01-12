@@ -47,6 +47,7 @@ interface CommonOptions {
 }
 
 export interface ToastOptions extends CommonOptions {
+  content?: ToastContent;
   animation?: AnimationTypes;
   type?: TypeOptions;
 }
@@ -57,10 +58,23 @@ export interface ToastProps extends ToastOptions {
   children?: ToastContent;
   className?: ToastClassName;
   bodyClassName?: ToastClassName;
-  theme: Theme;
+  theme?: Theme;
   type: TypeOptions;
+  toastAnimation: AnimationTypes;
+  showIcon?: boolean;
 }
 
 export interface NotValidatedToastProps extends Partial<ToastProps> {
   toastId: Id;
 }
+
+// export type ToastMap = {
+//   toastId: Id | string;
+//   content: ToastContentProps;
+//   type: TypeOptions;
+//   showIcon: boolean;
+//   theme: Theme;
+//   position: ToastPosition;
+//   animation: AnimationTypes;
+//   toastAnimation: AnimationTypes;
+// };
