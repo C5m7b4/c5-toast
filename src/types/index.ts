@@ -60,17 +60,20 @@ export interface ToastProps extends ToastOptions {
   position: ToastPosition;
   children?: ToastContent;
   className?: ToastClassName;
-  bodyClassName?: ToastClassName;
   theme?: Theme;
   showIcon?: boolean;
   toastAnimation?: AnimationTypes;
   toastAutoClose?: boolean;
   toastShowIcon?: boolean;
   options?: ToastOptions;
+  toastClassName?: ToastClassName;
+  toastBodyStyle?: React.CSSProperties;
 }
 
 export interface NotValidatedToastProps extends Partial<ToastProps> {
   toastId: Id;
   toastShowIcon: boolean;
   toastAutoClose: boolean;
+  toastClassName: ToastClassName;
+  toastBodyStyle: React.CSSProperties;
 }
