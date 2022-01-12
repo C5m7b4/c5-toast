@@ -1,7 +1,5 @@
 import React from 'react';
-import { AnimationTypes, ToastPosition, TypeOptions } from '../../types';
 import { Default } from '../../utils';
-import { ToastContent, Theme } from '../../types';
 import { ToastManager as toastManager, Event } from '../../core';
 import { Icons } from '../Icons';
 import { ToastProps } from '../../interfaces';

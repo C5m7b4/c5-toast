@@ -4,8 +4,12 @@ import Toast from '../Toast';
 import { useToastContainer } from '../../hooks';
 import { ToastManager as toastManager, Event } from '../../core';
 import { Default } from '../../utils';
-import { ToastContainerProps, ToastManagerToastProps } from '../../interfaces';
-import { OnShowCallback, ToastOptions } from '../../types';
+import {
+  CoreToastProps,
+  ToastContainerProps,
+  ToastManagerToastProps,
+} from '../../interfaces';
+import { OnShowCallback } from '../../types';
 
 const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const {
@@ -23,8 +27,7 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
 
   useEffect(() => {}, [toasts]);
 
-  toastManager.subscribe(Event.Show, (toast: OnShowCallback) => {
-    console.log(`adding toast from subscripiton: ${toast}`);
+  toastManager.subscribe(Event.Show, (toast: CoreToastProps) => {
     let toastList = [...toastManager.getToastList()];
     if (showLastOnTop) {
       toastList = toastList.reverse();
@@ -37,7 +40,7 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
         // then wait the appropriate amount of time
         // and them remove the element
         if (toast) {
-          const toastDiv = document.getElementById(toast.id);
+          const toastDiv = document.getElementById(toast.id as string);
           if (toastDiv) {
             toastDiv.classList.remove(
               `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`

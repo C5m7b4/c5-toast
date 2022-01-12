@@ -1,7 +1,8 @@
 import { generateToastId } from '../utils';
-import { ToastPosition } from '../types';
+import { ToastOptions, ToastPosition, ToastContent } from '../types';
 import { CoreToastProps, ToastManagerToastProps } from '../interfaces';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const subscribers: any[] = [];
 
 export const enum Event {
@@ -9,9 +10,10 @@ export const enum Event {
   Clear,
 }
 
-type SubscriberEvent = (toast: CoreToastProps) => void;
+type OnShowCallback = (content: ToastContent, options: ToastOptions) => void;
+type OnClearCallback = (id?: string) => void;
 
-type SubscriberEventArray = SubscriberEvent[];
+type Callback = OnShowCallback | OnClearCallback;
 
 export let toastList: ToastManagerToastProps[] = [];
 
@@ -26,14 +28,17 @@ export const ToastManager = {
       const newToastId = generateToastId();
       const newToast = {
         ...data,
+        content: (data && data.content) || null,
+        type: (data && data.type) || undefined,
         id: newToastId,
         position: this.toastPosition as ToastPosition,
-        toastAnimation: data.options?.animation || null,
       };
 
       toastList.push(newToast);
 
-      const subscriberEvent: SubscriberEventArray = subscribers[event];
+      const subscriberEvent: SubscriberEventArray = subscribers[
+        event
+      ] as SubscriberEventArray;
       if (subscriberEvent) {
         subscriberEvent.forEach((subscriberCallback: SubscriberEvent) => {
           subscriberCallback(newToast);
@@ -43,7 +48,9 @@ export const ToastManager = {
       // we need to remove this toast from the list
       const newToastList = toastList.filter((t) => t.id !== data.id);
       toastList = newToastList;
-      const subscriberEvent: SubscriberEventArray = subscribers[event];
+      const subscriberEvent: SubscriberEventArray = subscribers[
+        event
+      ] as SubscriberEventArray;
       if (subscriberEvent) {
         subscriberEvent.forEach((subscriberCallback: (arg0: any) => void) => {
           subscriberCallback(data);
@@ -52,7 +59,8 @@ export const ToastManager = {
     }
   },
 
-  subscribe(event: Event, callback: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  subscribe(event: Event, callback: OnShowCallback | IdOnly) {
     console.log(`event:${event} is subscribing`);
     if (!subscribers[event]) {
       subscribers[event] = [];
@@ -60,14 +68,19 @@ export const ToastManager = {
 
     let eventAlreadyExists = false;
 
-    subscribers[event].forEach((event: any) => {
-      if (event.toString() == callback.toString()) {
-        eventAlreadyExists = true;
-      }
-    });
+    const subscriberEvent: SubscriberEventArray = subscribers[
+      event
+    ] as SubscriberEventArray;
+    if (subscriberEvent) {
+      subscriberEvent.forEach((event: SubscriberEvent) => {
+        if (event.toString() == callback.toString()) {
+          eventAlreadyExists = true;
+        }
 
-    if (!eventAlreadyExists) {
-      subscribers[event].push(callback);
+        if (!eventAlreadyExists) {
+          subscriberEvent.push(callback);
+        }
+      });
     }
 
     console.log('subscribers', subscribers);
