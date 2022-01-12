@@ -1,27 +1,25 @@
 import React from 'react';
-import { AnimationTypes, ToastPosition, TypeOptions } from '../../types';
 import { Default } from '../../utils';
-import { ToastContent, Theme } from '../../types';
-import { ToastManager as toastManager, Event } from '../../core';
+import { toastManager, Event } from '../../core';
 import { Icons } from '../Icons';
-import { ToastProps } from '../../interfaces';
+import { AnimationTypes, ToastProps } from '../../types';
 
 const Toast: React.FC<ToastProps> = (props) => {
-  let {
+  const {
     content,
-    id,
+    toastId,
     type,
     showIcon,
     theme = 'light',
     position = 'top-right',
-    animation = 'slide',
     toastAnimation,
   } = props;
+  let { animation = 'slide' } = props;
 
   if (toastAnimation) {
-    animation = toastAnimation;
+    animation = toastAnimation as AnimationTypes;
   }
-  let divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
+  const divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
 
   const classNames = `${Default.CSS_NAMESPACE}__toast ${Default.CSS_NAMESPACE}__toast--${type} ${divAnimationClassName}`;
   const maybeIcon = Icons[type as keyof typeof Icons];
@@ -41,7 +39,7 @@ const Toast: React.FC<ToastProps> = (props) => {
   }
 
   const handleRemoveToast = () => {
-    const toastDiv = document.getElementById(id);
+    const toastDiv = document.getElementById(toastId as string);
     if (toastDiv) {
       toastDiv.classList.remove(
         `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`
@@ -55,14 +53,18 @@ const Toast: React.FC<ToastProps> = (props) => {
 
       // now we can call another setTimeout used to remove the element entirely
       setTimeout(() => {
-        console.log(`clearing toast from click with id: ${id}`);
-        toastManager.publish(Event.Clear, { id });
+        toastManager.publish(Event.Clear, toastId);
       }, 1000);
     }
   };
 
   return (
-    <div className={classNames} id={id} onClick={handleRemoveToast}>
+    <div
+      className={classNames}
+      id={toastId as string}
+      onClick={handleRemoveToast}
+      role="main"
+    >
       {Icon && (
         <div className={`${Default.CSS_NAMESPACE}__toast-icon`}>{Icon}</div>
       )}

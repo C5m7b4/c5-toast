@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { generateToastId } from '../utils';
-import { ToastManager as toastManager } from '../core';
+import { toastManager } from '../core';
 import { ToastPosition } from '../types';
 import { getToastContainerPosition } from '../utils';
 

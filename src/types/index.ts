@@ -20,6 +20,8 @@ export type Theme = 'light' | 'dark' | 'colored';
 
 export type AnimationTypes = 'slide' | 'bounce' | 'spin' | 'zoom' | 'flip';
 
+export type Id = number | string;
+
 export type ToastClassName =
   | {
       type?: TypeOptions;
@@ -45,12 +47,34 @@ interface CommonOptions {
 }
 
 export interface ToastOptions extends CommonOptions {
+  content?: ToastContent;
   animation?: AnimationTypes;
-  type: TypeOptions;
+  type?: TypeOptions;
 }
 
-export type OnShowCallback = {
-  content: ToastContent;
-  id: string;
+export interface ToastProps extends ToastOptions {
+  toastId: Id;
+  position: ToastPosition;
+  children?: ToastContent;
+  className?: ToastClassName;
+  bodyClassName?: ToastClassName;
+  theme?: Theme;
   type: TypeOptions;
-};
+  toastAnimation: AnimationTypes;
+  showIcon?: boolean;
+}
+
+export interface NotValidatedToastProps extends Partial<ToastProps> {
+  toastId: Id;
+}
+
+// export type ToastMap = {
+//   toastId: Id | string;
+//   content: ToastContentProps;
+//   type: TypeOptions;
+//   showIcon: boolean;
+//   theme: Theme;
+//   position: ToastPosition;
+//   animation: AnimationTypes;
+//   toastAnimation: AnimationTypes;
+// };
