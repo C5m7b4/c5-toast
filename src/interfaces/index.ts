@@ -17,17 +17,6 @@ export interface ToastContainerProps {
   showLastOnTop?: boolean;
 }
 
-export interface ToastProps {
-  content: ToastContent;
-  id: string;
-  type: TypeOptions;
-  showIcon?: boolean;
-  theme?: Theme;
-  position?: ToastPosition;
-  animation?: AnimationTypes;
-  toastAnimation?: AnimationTypes;
-}
-
 export interface ToastManagerToastProps {
   content: ToastContent;
   id: string;
