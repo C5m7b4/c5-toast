@@ -4,9 +4,9 @@ import Toast from '../Toast';
 import { useToastContainer } from '../../hooks';
 import { toastManager, Event } from '../../core';
 import { Default } from '../../utils';
-import { ToastContainerProps, ToastManagerToastProps } from '../../interfaces';
+import { ToastContainerProps } from '../../interfaces';
 import { ToastContent } from '../../../dist';
-import { NotValidatedToastProps, Id } from '../../types';
+import { Id, NotValidatedToastProps, ToastProps } from '../../types';
 
 const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   const {
@@ -20,11 +20,9 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   } = props;
   const { loaded, portalId } = useToastContainer(position);
   const domElement = document.getElementById(portalId);
-  const [toasts, setToasts] = useState<ToastManagerToastProps[]>([]);
+  const [toasts, setToasts] = useState<ToastProps[]>([]);
 
-  useEffect(() => {
-    console.log('rendering toast container');
-  }, [toasts]);
+  useEffect(() => {}, [toasts]);
 
   function buildToast(
     content: ToastContent,
@@ -75,19 +73,21 @@ const ToastContainer: React.FC<ToastContainerProps> = (props) => {
   if (domElement && loaded) {
     return ReactDOM.createPortal(
       <div className={`${Default.CSS_NAMESPACE}__toast-container`}>
-        {toasts.map((event: any, i: number) => (
-          <Toast
-            key={`toast-${i}`}
-            id={event.id}
-            content={event.content}
-            type={event.type}
-            showIcon={showIcons}
-            theme={theme}
-            position={position}
-            animation={animation}
-            toastAnimation={event.toastAnimation}
-          />
-        ))}
+        {toasts.map((event: ToastProps, i: number) => {
+          return (
+            <Toast
+              key={`toast-${i}`}
+              toastId={event.toastId as Id}
+              content={event.content}
+              type={event.type}
+              showIcon={showIcons}
+              theme={theme}
+              position={position}
+              animation={animation || undefined}
+              toastAnimation={event.toastAnimation}
+            />
+          );
+        })}
       </div>,
       domElement
     );
