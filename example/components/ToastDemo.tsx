@@ -85,26 +85,29 @@ export const ToastDemo = () => {
   };
 
   return (
-    <div>
-      <div>
-        {types.map((option: string, i: number) => {
-          return (
-            <li key={`type=${option}`}>
-              <label htmlFor={option}>
-                <input
-                  type="radio"
-                  name="type"
-                  value={type}
-                  onChange={() => setType(option)}
-                  checked={option == type}
-                />
-                {option}
-              </label>
-            </li>
-          );
-        })}
+    <div className="demo-wrapper">
+      <div className="toast-types">
+        <div className="toast-types-header">Types</div>
+        <ul>
+          {types.map((option: string, i: number) => {
+            return (
+              <li key={`type=${option}`}>
+                <label htmlFor={option}>
+                  <input
+                    type="radio"
+                    name="type"
+                    value={type}
+                    onChange={() => setType(option)}
+                    checked={option == type}
+                  />
+                  {option}
+                </label>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-      <div>
+      <div className="demo-message">
         <label>Message: </label>
         <input
           type="text"
@@ -112,7 +115,7 @@ export const ToastDemo = () => {
           onChange={(e) => setText(e.target.value)}
         />
       </div>
-      <div>
+      <div className="demo-auto-close">
         <label>Auto Close: </label>
         <input
           type="checkbox"
@@ -132,7 +135,7 @@ export const ToastDemo = () => {
           </React.Fragment>
         )}
       </div>
-      <div style={{ marginTop: '10px' }}>
+      <div className="demo-animation-type">
         <label>Animation Type: </label>
         <select
           value={animation}
@@ -145,7 +148,7 @@ export const ToastDemo = () => {
           ))}
         </select>
       </div>
-      <div style={{ marginTop: '10px' }}>
+      <div className="demo-show-last">
         <label>Show last on top</label>
         <input
           type="checkbox"
@@ -162,9 +165,11 @@ export const ToastDemo = () => {
         animation={animation as AnimationTypes}
         showLastOnTop={showLastOnTop}
       />
-      <div>
-        <button onClick={handleRegister}>Register</button>
-        <button style={{ marginLeft: '10px' }} onClick={madButton}>
+      <div className="demo-buttons">
+        <button className="demo-button-show" onClick={handleRegister}>
+          RShow Toast
+        </button>
+        <button className="demo-awesome-button" onClick={madButton}>
           Awesome Button
         </button>
       </div>
