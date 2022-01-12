@@ -64,21 +64,24 @@ export const toastManager: ToastManager = {
     this.list.has(event) &&
       this.list.get(event)!.forEach((callback: Callback) => {
         if (event == Event.Show) {
-          const { toastId, type } = args[1];
+          const { toastId, type, autoClose, showIcon } = args[1];
           const content = args[0];
           const options = args[1];
 
-          const newToast = {
+          const newToast: ToastProps = {
             content,
             type,
             toastId: toastId,
             position: this.toastPosition,
             options: args[1],
             toastAnimation: options.animation || undefined,
+            toastAutoClose: autoClose,
+            toastShowIcon: showIcon,
           };
 
           this.toastList.push(newToast);
 
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const timer: TimeoutId = setTimeout(() => {
             // @ts-ignore
             callback(newToast, options);
@@ -86,9 +89,10 @@ export const toastManager: ToastManager = {
         } else {
           // we need to remove this toast from the list
           const newToastList = this.toastList.filter(
-            (t) => t.toastId !== args[1].toastId
+            (t) => t.toastId !== args[0]
           );
           this.toastList = newToastList;
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const timer: TimeoutId = setTimeout(() => {
             // @ts-ignore
             callback(...args);
