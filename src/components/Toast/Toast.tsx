@@ -2,12 +2,12 @@ import React from 'react';
 import { Default } from '../../utils';
 import { toastManager, Event } from '../../core';
 import { Icons } from '../Icons';
-import { ToastProps } from '../../interfaces';
+import { AnimationTypes, ToastProps } from '../../types';
 
 const Toast: React.FC<ToastProps> = (props) => {
   const {
     content,
-    id,
+    toastId,
     type,
     showIcon,
     theme = 'light',
@@ -17,7 +17,7 @@ const Toast: React.FC<ToastProps> = (props) => {
   let { animation = 'slide' } = props;
 
   if (toastAnimation) {
-    animation = toastAnimation;
+    animation = toastAnimation as AnimationTypes;
   }
   const divAnimationClassName = `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`;
 
@@ -39,7 +39,7 @@ const Toast: React.FC<ToastProps> = (props) => {
   }
 
   const handleRemoveToast = () => {
-    const toastDiv = document.getElementById(id);
+    const toastDiv = document.getElementById(toastId as string);
     if (toastDiv) {
       toastDiv.classList.remove(
         `${Default.CSS_NAMESPACE}__${animation}-enter--${position}`
@@ -53,13 +53,18 @@ const Toast: React.FC<ToastProps> = (props) => {
 
       // now we can call another setTimeout used to remove the element entirely
       setTimeout(() => {
-        toastManager.publish(Event.Clear, id);
+        toastManager.publish(Event.Clear, toastId);
       }, 1000);
     }
   };
 
   return (
-    <div className={classNames} id={id} onClick={handleRemoveToast} role="main">
+    <div
+      className={classNames}
+      id={toastId as string}
+      onClick={handleRemoveToast}
+      role="main"
+    >
       {Icon && (
         <div className={`${Default.CSS_NAMESPACE}__toast-icon`}>{Icon}</div>
       )}
