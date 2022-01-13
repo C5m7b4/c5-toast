@@ -5,7 +5,7 @@ import { ToastCode } from './ToastCode';
 
 import './ToastDemo.css';
 
-const emojis = ['😎', '😵', '🤳', '🐱‍🏍', '🤺', '👹', '🤿', '🩺'];
+const emojis = ['😎', '😵', '🤳', '🐱', '🤺', '👹', '🤿', '🩺'];
 
 const getRandomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
 
@@ -15,7 +15,8 @@ const MadButton = () => {
       <h2>This is a really cool toast</h2>
       <p>Here is a paragraph</p>
       <p>
-        I'm not going to close on my own, so click me when you are done reading.
+        I&apos;m not going to close on my own, so click me when you are done
+        reading.
       </p>
     </div>
   );
@@ -38,15 +39,10 @@ const positions: ToastPosition[] = [
   'bottom-left',
 ];
 
-import {
-  ToastManager as toastManager,
-  ToastContainer,
-  toast,
-} from '../../src/index';
+import { ToastContainer, toast } from '../../src/index';
 
 export const ToastDemo = () => {
   const [text, setText] = useState('');
-  const [id, setId] = useState('');
   const [type, setType] = useState('info');
   const [autoClose, setAutoClose] = useState(true);
   const [autoCloseDelay, setAutoCloseDelay] = useState(3000);
@@ -72,10 +68,6 @@ export const ToastDemo = () => {
   ]);
 
   useEffect(() => {}, [position]);
-
-  const logCallback = () => {
-    console.log('Im saying hello');
-  };
 
   const madButton = () => {
     toast.success(<MadButton />, {
@@ -113,7 +105,7 @@ export const ToastDemo = () => {
       };
     }
 
-    let options = {
+    const options = {
       animation: anim,
       autoClose: ac,
       showIcon: si,
@@ -176,7 +168,7 @@ export const ToastDemo = () => {
           <ul>
             {types.map((option: string, i: number) => {
               return (
-                <li key={`type=${option}`}>
+                <li key={`type=${i}`}>
                   <label htmlFor={option}>
                     <input
                       type="radio"
@@ -199,23 +191,25 @@ export const ToastDemo = () => {
                   onChange={() => setType('custom')}
                   checked={type == 'custom'}
                 />
-                Custom 🐱‍🚀
+                Custom-🐱
               </label>
             </li>
           </ul>
         </div>
       </div>
       <div className="demo-message glassMorphism">
-        <label>Message: </label>
+        <label htmlFor="text">Message: </label>
         <input
           type="text"
+          name="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
       </div>
       <div className="demo-position glassMorphism">
-        <label>Position: </label>
+        <label htmlFor="position">Position: </label>
         <select
+          name="position"
           value={position}
           onChange={(e) => setPosition(e.target.value as ToastPosition)}
         >
@@ -230,9 +224,10 @@ export const ToastDemo = () => {
         <div className="container-specific">
           <h2>Container Specifics</h2>
           <div className="demo-auto-close glassMorphism-reverse">
-            <label>Auto Close: </label>
+            <label htmlFor="autoclose">Auto Close: </label>
             <input
               type="checkbox"
+              name="autoclose"
               checked={autoClose == true}
               onChange={(e) => setAutoClose(e.target.checked)}
             />
@@ -240,9 +235,10 @@ export const ToastDemo = () => {
             {autoClose && (
               <React.Fragment>
                 <br />
-                <label>Delay Time: </label>
+                <label htmlFor="autoclosedelay">Delay Time: </label>
                 <input
                   type="number"
+                  name="autoclosedelay"
                   value={autoCloseDelay}
                   onChange={(e) => setAutoCloseDelay(+e.target.value)}
                 />
@@ -250,8 +246,9 @@ export const ToastDemo = () => {
             )}
           </div>
           <div className="demo-animation-type glassMorphism-reverse">
-            <label>Animation Type: </label>
+            <label htmlFor="animation">Animation Type: </label>
             <select
+              name="animation"
               value={animation}
               onChange={(e) => setAnimation(e.target.value as AnimationTypes)}
             >
@@ -263,17 +260,19 @@ export const ToastDemo = () => {
             </select>
           </div>
           <div className="demo-show-last glassMorphism-reverse">
-            <label>Show last on top</label>
+            <label htmlFor="showlastontop">Show last on top</label>
             <input
               type="checkbox"
+              name="showlastontop"
               checked={showLastOnTop === true}
               onChange={(e) => setShowLastOnTop(e.target.checked)}
             />
           </div>
           <div className="demo-show-icons glassMorphism-reverse">
-            <label>Show Icons</label>
+            <label htmlFor="showicons">Show Icons</label>
             <input
               type="checkbox"
+              name="showicons"
               checked={showIcons === true}
               onChange={(e) => setShowIcons(e.target.checked)}
             />
@@ -300,9 +299,10 @@ export const ToastDemo = () => {
             />
           </div>
           <div className="demo-animation-type glassMorphism">
-            <label>Animation Type: </label>
+            <label htmlFor="toastanimation">Animation Type: </label>
             <select
               value={toastAnimation}
+              name="toastanimation"
               onChange={(e) =>
                 setToastAnimation(e.target.value as AnimationTypes)
               }
