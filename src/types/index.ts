@@ -76,4 +76,5 @@ export interface NotValidatedToastProps extends Partial<ToastProps> {
   toastAutoClose: boolean;
   toastClassName: ToastClassName;
   toastBodyStyle: React.CSSProperties;
+  bodyStyle: React.CSSProperties;
 }
