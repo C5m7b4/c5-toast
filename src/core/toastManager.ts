@@ -1,12 +1,14 @@
+import React from 'react';
 import {
   ToastContent,
   ToastPosition,
   NotValidatedToastProps,
   Id,
   ToastProps,
+  ToastClassName,
+  TypeOptions,
+  AnimationTypes,
 } from '../types';
-
-// const subscribers: any[] = [];
 
 type TimeoutId = ReturnType<typeof setTimeout>;
 
@@ -31,18 +33,28 @@ export interface ToastManager {
   toastPosition: ToastPosition;
   subscribe(event: Event, callback: OnShowCallback): ToastManager;
   subscribe(event: Event, callback: OnClearCallback): ToastManager;
-  publish(event: Event.Clear, id?: string | number): void;
-  publish(
-    event: Event.Show,
-    content: ToastContent,
-    options: NotValidatedToastProps
-  ): void;
+  publish(event: Event.Clear, id: Id): void;
+  publish(event: Event.Show, args: ToastEmit): void;
 
   getToastList(): ToastProps[];
   setContainerId(id: string): void;
   getContainerId(): string;
   setToastPosition(position: ToastPosition): void;
 }
+
+export type ToastEmit = {
+  content: ToastContent;
+  toastId: Id;
+  type: TypeOptions;
+  position: ToastPosition;
+  toastAnimation: AnimationTypes;
+  toastAutoClose: boolean;
+  toastShowIcon: boolean;
+  toastClassName: ToastClassName;
+  toastBodyStyle: React.CSSProperties;
+};
+
+type EventEmitType = ToastEmit | Id;
 
 export const toastManager: ToastManager = {
   list: new Map(),
@@ -60,26 +72,31 @@ export const toastManager: ToastManager = {
     return this;
   },
 
-  publish(event: Event, ...args: any[]) {
+  publish(event: Event, args: EventEmitType) {
     this.list.has(event) &&
       this.list.get(event)!.forEach((callback: Callback) => {
         if (event == Event.Show) {
-          const { toastId, type, autoClose, showIcon, className, bodyStyle } =
-            args[1];
-          const content = args[0];
-          const options = args[1];
+          const {
+            content,
+            toastId,
+            type,
+            toastAutoClose,
+            toastShowIcon,
+            toastClassName,
+            toastBodyStyle,
+            toastAnimation,
+          } = args as ToastEmit;
 
           const newToast: ToastProps = {
             content,
             type,
             toastId: toastId,
             position: this.toastPosition,
-            options: args[1],
-            toastAnimation: options.animation || undefined,
-            toastAutoClose: autoClose,
-            toastShowIcon: showIcon,
-            toastClassName: className,
-            toastBodyStyle: bodyStyle,
+            toastAnimation: toastAnimation,
+            toastAutoClose: toastAutoClose,
+            toastShowIcon: toastShowIcon,
+            toastClassName: toastClassName,
+            toastBodyStyle: toastBodyStyle,
           };
 
           this.toastList.push(newToast);
@@ -87,13 +104,11 @@ export const toastManager: ToastManager = {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const timer: TimeoutId = setTimeout(() => {
             // @ts-ignore
-            callback(newToast, options);
+            callback(newToast, args);
           }, 0);
         } else {
           // we need to remove this toast from the list
-          const newToastList = this.toastList.filter(
-            (t) => t.toastId !== args[0]
-          );
+          const newToastList = this.toastList.filter((t) => t.toastId !== args);
           this.toastList = newToastList;
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const timer: TimeoutId = setTimeout(() => {

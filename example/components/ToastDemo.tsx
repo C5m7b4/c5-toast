@@ -5,9 +5,9 @@ import { ToastCode } from './ToastCode';
 
 import './ToastDemo.css';
 
-const emojis = ['😎', '😵', '🤳', '🐱', '🤺', '👹', '🤿', '🩺'];
+// const emojis = ['😎', '😵', '🤳', '🐱', '🤺', '👹', '🤿', '🩺'];
 
-const getRandomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
+// const getRandomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
 
 const MadButton = () => {
   return (
@@ -22,7 +22,22 @@ const MadButton = () => {
   );
 };
 
-const types = ['info', 'warning', 'error', 'default', 'dark', 'success'];
+type TypeTypes = {
+  type: string;
+  emoji: string;
+};
+
+type TypeTypeArray = TypeTypes[];
+
+const types: TypeTypeArray = [
+  { type: 'info', emoji: '🚀' },
+  { type: 'warning', emoji: '💀' },
+  { type: 'error', emoji: '😡' },
+  { type: 'default', emoji: '🥱' },
+  { type: 'dark', emoji: '💩' },
+  { type: 'success', emoji: '👑' },
+];
+
 const animations: AnimationTypes[] = [
   'slide',
   'bounce',
@@ -77,6 +92,9 @@ export const ToastDemo = () => {
   };
 
   const handleRegister = () => {
+    if (text.length === 0) {
+      toast.error('Please include a Message');
+    }
     let anim = animation;
     if (toastAnimation !== animation) {
       anim = toastAnimation;
@@ -166,18 +184,18 @@ export const ToastDemo = () => {
         <div className="toast-types-header">Types</div>
         <div className="toast-types-list ">
           <ul>
-            {types.map((option: string, i: number) => {
+            {types.map((option: TypeTypes, i: number) => {
               return (
                 <li key={`type=${i}`}>
-                  <label htmlFor={option}>
+                  <label htmlFor={option.type}>
                     <input
                       type="radio"
-                      name="type"
+                      name={option.type}
                       value={type}
-                      onChange={() => setType(option)}
-                      checked={option == type}
+                      onChange={() => setType(option.type)}
+                      checked={option.type == type}
                     />
-                    {option} {getRandomEmoji()}
+                    {option.type} {option.emoji}
                   </label>
                 </li>
               );
