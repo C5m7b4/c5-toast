@@ -51,6 +51,32 @@ option {
   background: radial-gradient(to bottom left, #6e2781, #080d1a);
 }
 
+.glassMorphism {
+  background: linear-gradient(
+    109.04deg,
+    rgba(239, 239, 239, 0.6) 1.72%,
+    rgba(239, 239, 239, 0.1) 95.36%
+  );
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(50px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 20px;
+}
+
+.glassMorphism-reverse {
+  background: linear-gradient(
+    249.42deg,
+    rgba(239, 239, 239, 0.6) 0%,
+    rgba(239, 239, 239, 0.1) 100%
+  );
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(50px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 20px;
+}
+
 .main-background {
   color: #fff;
   padding: 20px;
@@ -72,9 +98,9 @@ h3 {
 }
 
 .toast-types {
-  border: 1px solid #fff;
+  /* border: 1px solid #fff;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3); */
   padding: 10px;
   margin-bottom: 10px;
   max-width: 400px;
@@ -118,9 +144,8 @@ h3 {
 .demo-message {
   max-width: 400px;
   margin: 0 auto;
-  border: 1px solid #fff;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
@@ -136,9 +161,8 @@ h3 {
 .demo-auto-close {
   max-width: 400px;
   margin: 0 auto;
-  border: 1px solid #fff;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
@@ -148,9 +172,8 @@ h3 {
 .demo-animation-type {
   max-width: 400px;
   margin: 0 auto;
-  border: 1px solid #fff;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
@@ -160,9 +183,8 @@ h3 {
 .demo-show-last {
   max-width: 400px;
   margin: 0 auto;
-  border: 1px solid #fff;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
@@ -172,9 +194,8 @@ h3 {
 .demo-show-icons {
   max-width: 400px;
   margin: 0 auto;
-  border: 1px solid #fff;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
@@ -184,9 +205,9 @@ h3 {
 .demo-position {
   max-width: 400px;
   margin: 0 auto;
-  border: 1px solid #fff;
+
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 10px;
@@ -194,14 +215,13 @@ h3 {
 }
 
 .demo-buttons {
-  max-width: 400px;
+  max-width: 740px;
   margin: 0 auto;
-  border: 1px solid #fff;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.3);
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 10px;
   margin-top: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
 }
@@ -250,6 +270,7 @@ h3 {
   border-left: 3px solid #a9547e;
   padding: 10px 20px;
   background: #222;
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .code__component {
