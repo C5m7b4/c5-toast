@@ -154,7 +154,6 @@ export const ToastDemo = () => {
         <ContainerCode
           position="top-right"
           autoClose={autoClose}
-          isDefaultProps={false}
           autoCloseDelay={autoCloseDelay}
           showLastOnTop={showLastOnTop}
           showIcons={showIcons}
@@ -171,9 +170,9 @@ export const ToastDemo = () => {
           animation={animation}
         />
       </div>
-      <div className="toast-types">
+      <div className="toast-types glassMorphism">
         <div className="toast-types-header">Types</div>
-        <div className="toast-types-list">
+        <div className="toast-types-list ">
           <ul>
             {types.map((option: string, i: number) => {
               return (
@@ -206,7 +205,7 @@ export const ToastDemo = () => {
           </ul>
         </div>
       </div>
-      <div className="demo-message">
+      <div className="demo-message glassMorphism">
         <label>Message: </label>
         <input
           type="text"
@@ -214,7 +213,7 @@ export const ToastDemo = () => {
           onChange={(e) => setText(e.target.value)}
         />
       </div>
-      <div className="demo-position">
+      <div className="demo-position glassMorphism">
         <label>Position: </label>
         <select
           value={position}
@@ -230,7 +229,7 @@ export const ToastDemo = () => {
       <div className="specifics">
         <div className="container-specific">
           <h2>Container Specifics</h2>
-          <div className="demo-auto-close">
+          <div className="demo-auto-close glassMorphism-reverse">
             <label>Auto Close: </label>
             <input
               type="checkbox"
@@ -250,7 +249,7 @@ export const ToastDemo = () => {
               </React.Fragment>
             )}
           </div>
-          <div className="demo-animation-type">
+          <div className="demo-animation-type glassMorphism-reverse">
             <label>Animation Type: </label>
             <select
               value={animation}
@@ -263,7 +262,7 @@ export const ToastDemo = () => {
               ))}
             </select>
           </div>
-          <div className="demo-show-last">
+          <div className="demo-show-last glassMorphism-reverse">
             <label>Show last on top</label>
             <input
               type="checkbox"
@@ -271,7 +270,7 @@ export const ToastDemo = () => {
               onChange={(e) => setShowLastOnTop(e.target.checked)}
             />
           </div>
-          <div className="demo-show-icons">
+          <div className="demo-show-icons glassMorphism-reverse">
             <label>Show Icons</label>
             <input
               type="checkbox"
@@ -282,7 +281,7 @@ export const ToastDemo = () => {
         </div>
         <div className="toast-specific">
           <h2>Toast Specifics</h2>
-          <div className="demo-auto-close">
+          <div className="demo-auto-close glassMorphism">
             <label htmlFor="toastAutoClose">Auto Close</label>
             <input
               type="checkbox"
@@ -291,7 +290,7 @@ export const ToastDemo = () => {
               onChange={(e) => setToastAutoClose(e.target.checked)}
             />
           </div>
-          <div className="demo-show-icons">
+          <div className="demo-show-icons glassMorphism">
             <label htmlFor="toastShowIcon">Show Icon</label>
             <input
               type="checkbox"
@@ -300,7 +299,7 @@ export const ToastDemo = () => {
               onChange={(e) => setToastShowIcon(e.target.checked)}
             />
           </div>
-          <div className="demo-animation-type">
+          <div className="demo-animation-type glassMorphism">
             <label>Animation Type: </label>
             <select
               value={toastAnimation}
@@ -326,7 +325,7 @@ export const ToastDemo = () => {
         animation={animation as AnimationTypes}
         showLastOnTop={showLastOnTop}
       />
-      <div className="demo-buttons">
+      <div className="demo-buttons glassMorphism">
         <button className="demo-button-show" onClick={handleRegister}>
           Show Toast
         </button>
