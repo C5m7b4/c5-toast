@@ -2,25 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AnimationTypes, ToastPosition, TypeOptions } from '../../src/types';
 import { ContainerCode } from './ContainerCode';
 import { ToastCode } from './ToastCode';
+import { MadButton } from './MadButton';
 
 import './ToastDemo.css';
-
-// const emojis = ['😎', '😵', '🤳', '🐱', '🤺', '👹', '🤿', '🩺'];
-
-// const getRandomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
-
-const MadButton = () => {
-  return (
-    <div>
-      <h2>This is a really cool toast</h2>
-      <p>Here is a paragraph</p>
-      <p>
-        I&apos;m not going to close on my own, so click me when you are done
-        reading.
-      </p>
-    </div>
-  );
-};
 
 type TypeTypes = {
   type: string;
@@ -55,6 +39,8 @@ const positions: ToastPosition[] = [
 ];
 
 import { ToastContainer, toast } from '../../src/index';
+import { ToastSpecific } from './ToastSpecific';
+import { ContainerSpecific } from './ContainerSpecific';
 
 export const ToastDemo = () => {
   const [text, setText] = useState('');
@@ -239,100 +225,31 @@ export const ToastDemo = () => {
         </select>
       </div>
       <div className="specifics">
-        <div className="container-specific">
-          <h2>Container Specifics</h2>
-          <div className="demo-auto-close glassMorphism-reverse">
-            <label htmlFor="autoclose">Auto Close: </label>
-            <input
-              type="checkbox"
-              name="autoclose"
-              checked={autoClose == true}
-              onChange={(e) => setAutoClose(e.target.checked)}
-            />
+        <ContainerSpecific
+          autoClose={autoClose}
+          setAutoClose={setAutoClose}
+          autoCloseDelay={autoCloseDelay}
+          setAutoCloseDelay={setAutoCloseDelay}
+          animation={animation}
+          setAnimation={setAnimation}
+          animations={animations}
+          capitalize={capitalize}
+          showLastOnTop={showLastOnTop}
+          setShowLastOnTop={setShowLastOnTop}
+          showIcons={showIcons}
+          setShowIcons={setShowIcons}
+        />
 
-            {autoClose && (
-              <React.Fragment>
-                <br />
-                <label htmlFor="autoclosedelay">Delay Time: </label>
-                <input
-                  type="number"
-                  name="autoclosedelay"
-                  value={autoCloseDelay}
-                  onChange={(e) => setAutoCloseDelay(+e.target.value)}
-                />
-              </React.Fragment>
-            )}
-          </div>
-          <div className="demo-animation-type glassMorphism-reverse">
-            <label htmlFor="animation">Animation Type: </label>
-            <select
-              name="animation"
-              value={animation}
-              onChange={(e) => setAnimation(e.target.value as AnimationTypes)}
-            >
-              {animations.map((animation, i) => (
-                <option key={`animation-${i}`} value={animation}>
-                  {capitalize(animation)}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="demo-show-last glassMorphism-reverse">
-            <label htmlFor="showlastontop">Show last on top</label>
-            <input
-              type="checkbox"
-              name="showlastontop"
-              checked={showLastOnTop === true}
-              onChange={(e) => setShowLastOnTop(e.target.checked)}
-            />
-          </div>
-          <div className="demo-show-icons glassMorphism-reverse">
-            <label htmlFor="showicons">Show Icons</label>
-            <input
-              type="checkbox"
-              name="showicons"
-              checked={showIcons === true}
-              onChange={(e) => setShowIcons(e.target.checked)}
-            />
-          </div>
-        </div>
-        <div className="toast-specific">
-          <h2>Toast Specifics</h2>
-          <div className="demo-auto-close glassMorphism">
-            <label htmlFor="toastAutoClose">Auto Close</label>
-            <input
-              type="checkbox"
-              name="toastAutoClose"
-              checked={toastAutoClose === true}
-              onChange={(e) => setToastAutoClose(e.target.checked)}
-            />
-          </div>
-          <div className="demo-show-icons glassMorphism">
-            <label htmlFor="toastShowIcon">Show Icon</label>
-            <input
-              type="checkbox"
-              name="toastShowIcon"
-              checked={toastShowIcon === true}
-              onChange={(e) => setToastShowIcon(e.target.checked)}
-            />
-          </div>
-          <div className="demo-animation-type glassMorphism">
-            <label htmlFor="toastanimation">Animation Type: </label>
-            <select
-              value={toastAnimation}
-              name="toastanimation"
-              onChange={(e) =>
-                setToastAnimation(e.target.value as AnimationTypes)
-              }
-            >
-              {animations.map((animation, i) => (
-                <option key={`animation-${i}`} value={animation}>
-                  {capitalize(animation)}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+        <ToastSpecific
+          toastAutoClose={toastAutoClose}
+          setToastAutoClose={setToastAutoClose}
+          toastShowIcon={toastShowIcon}
+          setToastShowIcon={setToastShowIcon}
+          toastAnimation={toastAnimation}
+          setToastAnimation={setToastAnimation}
+          animations={animations}
+          capitalize={capitalize}
+        />
       </div>
 
       <ToastContainer
