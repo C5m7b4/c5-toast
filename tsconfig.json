@@ -18,5 +18,6 @@
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
   },
-  "exclude":["example"]
+  // "exclude":["example"],
+  "include":["src", "example"]
 }
